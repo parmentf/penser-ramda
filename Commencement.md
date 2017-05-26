@@ -71,5 +71,5 @@ Si vous venez d'un autre langage qui possède ces fonctions \(Ruby et Smalltalk 
 
 Martin Fowler a une paire d'articles intéressants \(NDT: _great_, c'est sûrement mieux que ça\) à propos des _pipelines de collections_ qui montrent [comment utiliser ces fonctions](http://martinfowler.com/articles/collection-pipeline/), et comment [_refactorer_ du code existant en pipelines de collections](http://martinfowler.com/articles/refactoring-pipelines.html).
 
-Remarquez que ces fonctions sont toutes \(à l'exception de `reject`\) disponible sur `Array.prototype`, donc vous n'avez pas strictement besoin de Ramda pour les utiliser. Néanmoins, j'utiliserai les versions Ramda pour une question de cohérence avec la suite du livre.
+Remarquez que ces fonctions sont toutes \(à l'exception de `reject`\) disponibles sur `Array.prototype`, donc vous n'avez pas strictement besoin de Ramda pour les utiliser. Néanmoins, j'utiliserai les versions Ramda pour une question de cohérence avec la suite du livre.
 
