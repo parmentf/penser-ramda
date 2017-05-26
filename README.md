@@ -1,3 +1,8 @@
-# My Awesome Book
+# Penser Ramda
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+Ceci n'est qu'une humble traduction de la série d'articles _Thinking in Ramda_ du blog de Randy Coulman[^1].
+
+Peut-être aussi que j'ajouterai des morceaux de la playlist _Learn Ramda.js_ trouvée sur https://Egghead.io.
+
+[^1]: http://randycoulman.com/blog/categories/thinking-in-ramda/
+
