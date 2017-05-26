@@ -41,7 +41,5 @@ Certains langages vont plus loin, et considèrent les fonctions comme la brique 
 * les passer en paramètres à d'autres fonctions,
 * les renvoyer comme résultats d'autres fonctions.
 
-Javascript est un de ces langages, et nous allons tirer parti de cet aspect.
-
-
+JavaScript est un de ces langages, et nous allons tirer parti de cet aspect.
 
