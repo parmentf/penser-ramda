@@ -53,3 +53,15 @@ L'idée de base est que, si vous appelez une fonction avec les mêmes données e
 
 Vous pouvez évidemment faire des choses avec des fonctions impures \(et vous devez le faire, si votre programme doit faire quelque chose d'intéressant\), mais pour l'essentiel, vous voudrez garder vos fonctions pures.
 
+## Immutabilité {#immutability}
+
+Un autre concept important dans la programmation fonctionnelle est celui d'_immutabilité_. Qu'est-ce que ça signifie? _Immutable_ veut dire _inchangeable_.
+
+Quand je travaille de manière immutable, une fois que l'initialise une valeur ou un objet, je ne le/la modifie plus jamais. Cela signifie que je ne change pas les éléments d'un tableau ou les propriétés d'un objet.
+
+Si j'ai besoin de changer quelque chose dans un tableau ou un objet, j'en renvoie une nouvelle copie avec la valeur modifiée. Nous en reparlerons en détails.
+
+L'immutabilité travaille main dans la main avec les fonctions pures. Comme il est interdit aux fonctions pures d'entraîner des effets de bord, il leur est interdit de modifier des structures de données qui leur sont externes. Elles sont forcées de travailler avec les données de manière immutable.
+
+
+
