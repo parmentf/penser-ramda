@@ -11,5 +11,5 @@ Randy Coulman avait déjà parlé du sujet sur son blog avant de commencer la s�
 * dans [Using Ramda With Redux](http://randycoulman.com/blog/2016/02/16/using-ramda-with-redux/), il a montré quelques exemples d'utilisation de Ramda dans l'écriture d'applications [Redux](http://redux.js.org/),
 * dans [Using Redux-api-middleware With Rails](http://randycoulman.com/blog/2016/04/19/using-redux-api-middleware-with-rails/), il a utilisé Ramda pour simplifier la transformation de requêtes et de réponses \(NDT: _request and response payloads_\).
 
-
+Je trouve que Ramda est une bibliothèque joliment conçue qui fournit beaucoup d'outils pour faire de la programmation fonctionnelle d'une manière claire et élégante.
 
