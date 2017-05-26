@@ -9,7 +9,7 @@ Je m'en tiendrai aux sujets les plus légers, les moins académiques de la progr
 Randy Coulman avait déjà parlé du sujet sur son blog avant de commencer la série _Thinking in Ramda_ :
 
 * dans [Using Ramda With Redux](http://randycoulman.com/blog/2016/02/16/using-ramda-with-redux/), il a montré quelques exemples d'utilisation de Ramda dans l'écriture d'applications [Redux](http://redux.js.org/),
-* dans [Using Redux-api-middleware With Rail](http://randycoulman.com/blog/2016/04/19/using-redux-api-middleware-with-rails/),
+* dans [Using Redux-api-middleware With Rails](http://randycoulman.com/blog/2016/04/19/using-redux-api-middleware-with-rails/), il a utilisé Ramda pour simplifier la transformation de requêtes et de réponses \(NDT: _request and response payloads_\).
 
 
 
