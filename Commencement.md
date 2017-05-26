@@ -43,3 +43,13 @@ Certains langages vont plus loin, et considèrent les fonctions comme la brique 
 
 JavaScript est un de ces langages, et nous allons tirer parti de cet aspect.
 
+## Fonctions pures {#pure-functions}
+
+En écrivant des programmes fonctionnels, il devient important de ne travailler qu'avec des fonctions soit-disant "pures".
+
+Les fonctions pures sont des fonctions qui n'ont pas d'effet de bord. Elle n'affectent aucune variable externe, elles ne lisent pas l'entrée standard, n'écrivent pas dans la sortie standard, elles ne lisent ni n'écrivent dans une base de données, elles ne modifient pas les paramètres qu'elles reçoivent, etc.
+
+L'idée de base est que, si vous appelez une fonction avec les mêmes données encore et encore, vous obtiendrez toujours le même résultat.
+
+Vous pouvez évidemment faire des choses avec des fonctions impures \(et vous devez le faire, si votre programme doit faire quelque chose d'intéressant\), mais pour l'essentiel, vous voudrez garder vos fonctions pures.
+
