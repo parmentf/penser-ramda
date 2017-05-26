@@ -33,5 +33,15 @@ Avec les fonctions fléchées \(_arrow functions_ en anglais\), on peut écrire 
 const double = x => x * 2
 ```
 
+La plupart des langages de programmations permettent l'utilisation de fonctions.
+
+Certains langages vont plus loin, et considèrent les fonctions comme la brique de base \(_first-class constructs_ en anglais\). Cela signifie qu'elles sont considérées comme d'autres valeurs. On peut:
+
+* les référencer comme des variables ou des constantes,
+* les passer en paramètres à d'autres fonctions,
+* les renvoyer comme résultats d'autres fonctions.
+
+Javascript est un de ces langages, et nous allons tirer parti de cet aspect.
+
 
 
