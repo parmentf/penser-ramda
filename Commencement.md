@@ -15,3 +15,23 @@ Je trouve que Ramda est une bibliothèque joliment conçue qui fournit beaucoup 
 
 Si vous voulez expérimenter Ramda en lisant ce livre, il y a un moyen très pratique de le faire depuis le navigateur, en utilisant la page [_Try Ramda_](http://ramdajs.com/repl/) sur le site même de Ramda.
 
+## Fonctions
+
+Comme son nom le suggère, la programmation fonctionnelle est une affaire de fonctions. Pour notre propos, nous définirons une fonction comme un morceau de programme appelée avec ou sans arguments et renvoyant un résultat.
+
+Voici une fonction JavaScript simple:
+
+```js
+function double(x) {
+  return x * 2
+}
+```
+
+Avec les fonctions fléchées \(_arrow functions_ en anglais\), on peut écrire la même fonction avec beaucoup plus de concision. Je le mentionne dès à présent car nous allons beaucoup les utiliser.
+
+```js
+const double = x => x * 2
+```
+
+
+
