@@ -161,5 +161,5 @@ En commençant par ces fonctions _itération-collection_, vous pouvez vous faire
 
 ## Chapitre suivant
 
-Le prochain chapitre, Combinaison de fonctions, montre comment nous pouvons aller un peu plus loin et commencer à combiner des fonctions d'une manière nouvelle et intéressante.
+Le prochain chapitre,[ Combinaison de fonctions](/combinaison-de-fonctions.md), montre comment nous pouvons aller un peu plus loin et commencer à combiner des fonctions d'une manière nouvelle et intéressante.
 
