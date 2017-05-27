@@ -39,3 +39,36 @@ find(isOdd, [1, 2, 3, 4]) // --> 1
 
 Remarquez que `complement` fait la même chose sur les fonctions que ce que l'opérateur `!` \(non\) fait sur les valeurs.
 
+### Both/Either {#botheither}
+
+Disons que nous travaillons sur un système de vote. Étant donnée une personne, nous voudrions être capable de déterminer si cette personne a le droit de vote. Selon nos connaissances actuelles, une personne doit avoir au moins 18 ans et être citoyen pour avoir le droit de vote. Quelqu'un est un citoyen s'il est né dans le pays ou s'il est devenu plus tard en se faisant naturaliser.
+
+```js
+const wasBornInCountry = person => person.birthCountry === OUR_COUNTRY
+const wasNaturalized = person => Boolean(person.naturalizationDate)
+const isOver18 = person => person.age >= 18
+ 
+const isCitizen = person => wasBornInCountry(person) || wasNaturalized(person)
+ 
+const isEligibleToVote = person => isOver18(person) && isCitizen(person)
+```
+
+Ce que nous avons écrit ci-dessus fonctionne, mais Ramda fournit quelques fonctions pratiques pour nous aider à rendre ce code un peu plus propre.
+
+`both`prend deux autres fonctions et renvoie une nouvelle fonction qui retourne `true `si les deux fonctions renvoient une valeur vraie quand elles sont appliquées à leurs arguments, et `false` sinon.
+
+`either`prend deux autres fonctions et renvoie une nouvelle fonction qui retourne `true `si l'une ou l'autre des fonctions renvoie une valeur vrai quand elles sont appliquées à leurs arguments, et `false` sinon.
+
+En utilisant ces deux fonctions, nous pouvons simplifier `isCitizen` et `isEligibleToVote`:
+
+```js
+const isCitizen = either(wasBornInCountry, wasNaturalized)
+const isEligibleToVote = both(isOver18, isCitizen)
+```
+
+Remarquez que `both` fait la même chose avec des fonctions que ce que l'opérateur `&&` fait pour des valeurs, et que `either` fait la même chose avec des fonctions que ce que l'opérateur `||` fait avec des valeurs.
+
+Ramda fournit aussi `allPass` et `anyPass`, qui prennent un tableau de fonctions de taille quelconque. Comme leurs noms le suggèrent, `allPass` fonctionne comme `both`, et `anyPass` comme `either`.
+
+
+
