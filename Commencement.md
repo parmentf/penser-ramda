@@ -73,3 +73,23 @@ Martin Fowler a une paire d'articles intéressants \(NDT: _great_, c'est sûreme
 
 Remarquez que ces fonctions sont toutes \(à l'exception de `reject`\) disponibles sur `Array.prototype`, donc vous n'avez pas strictement besoin de Ramda pour les utiliser. Néanmoins, j'utiliserai les versions Ramda pour une question de cohérence avec la suite du livre.
 
+### forEach {#foreach}
+
+Essayons d'utiliser la fonction `foreach `plutôt que d'écrire une boucle explicite.
+
+```js
+// Remplacer ceci:
+for (const value of myArray) {
+  console.log(value)
+}
+ 
+// par:
+forEach(value => console.log(value), myArray)
+```
+
+`forEach` prend une fonction et un tableau, puis appelle la fonction sur chaque élément du tableau.
+
+Bien que `foreach` soit la plus facile d'approche de ces fonctions, c'est la moins utilisée d'entre elles quand on fait de la programmation fonctionnelle. Elle ne renvoie aucune valeur, alors elle n'est vraiment utilisée que quand on appelle des fonctions ayant des effets de bord.
+
+
+
