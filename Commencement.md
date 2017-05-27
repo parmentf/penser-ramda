@@ -155,7 +155,11 @@ reduce(add, 5, [1, 2, 3, 4]) // --> 15
 4. `reduce` appelle `add` une dernière fois,  avec `11` et la dernière valeur du tableau \(`4`\), renvoyant `15`,
 5. `reduce` renvoie la valeur accumulée comme son résultat \(`15`\).
 
+## Conclusion
 
+En commençant par ces fonctions _itération-collection_, vous pouvez vous faire à l'idée de passer des fonctions à d'autres fonctions. Vous pouvez les avoir utilisées dans d'autres langages sans même vous rendre compte que vous étiez en train de faire de la programmation fonctionnelle.
 
+## Chapitre suivant
 
+Le prochain chapitre, Combinaison de fonctions, montre comment nous pouvons aller un peu plus loin et commencer à combiner des fonctions d'une manière nouvelle et intéressante.
 
