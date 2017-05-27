@@ -115,17 +115,41 @@ Ensuite, voyons `filter` et `reject`. Comme son nom l'indique, `filter` sélecti
 
 ```js
 const isEven = x => x % 2 === 0
- 
+
 filter(isEven, [1, 2, 3, 4])  // --> [2, 4]
 ```
 
 `filter`applies its function \(`isEven`in this case\) to each element of the array. Whenever the function returns a “truthy” value, the corresponding element is included in the result. Whenever the function returns a “falsy” value, the corresponding element is excluded \(filtered out\) from the array.
 
-`reject`fait exactement l'inverse. Elle garde les éléments pour lesquels la fonction renvoie une valeur fausse_ \(_NDT: _falsy_ en anglais, qui signifie équivalent au booléen _faux_ du point de vue JavaScript\), et exclut les éléments pour lesquels elle retourne une valeur vraie \(NDT: _truthy_ en anglais, là encore, cela signfie _vrai_ du point de vue JavaScript\).
+`reject`fait exactement l'inverse. Elle garde les éléments pour lesquels la fonction renvoie une valeur fausse_ \(\_NDT: \_falsy_ en anglais, qui signifie équivalent au booléen _faux_ du point de vue JavaScript\), et exclut les éléments pour lesquels elle retourne une valeur vraie \(NDT: _truthy_ en anglais, là encore, cela signfie _vrai_ du point de vue JavaScript\).
 
 ```js
 reject(isEven, [1, 2, 3, 4]) // --> [1, 3]
 ```
+
+### find {#find}
+
+`find`applique une fonction à chaque élément d'un tableau, et renvoie le premier élément pour lequel la fonctions retourne une valeur vraie \(NDT: _truthy_\).
+
+```js
+find(isEven, [1, 2, 3, 4]) // --> 2
+```
+
+### reduce {#reduce}
+
+`reduce`est un peu plus compliquée  que les autres fonctions que nous avons vues jusqu'à présent. C'est la peine de la connaître, mais si vous avez du mal à comprendre au premier abord, ne vous laissez pas arrêter par cette impression. Vous pouvez aller loin sans la comprendre.`reduce`prend en paramètres une fonction à deux arguments, une valeur initiale, et un tableau à traiter.
+
+Le premier argument que nous passons à la fonction est appelé l'_accumulateur_, et le second est la valeur venant du tableau. La fonction doit retourner la nouvelle valeur de l'accumulateur.
+
+Regardons un exemple, et développons ce qui s'y passe.
+
+```js
+const add = (accum, value) => accum + value
+ 
+reduce(add, 5, [1, 2, 3, 4]) // --> 15
+```
+
+
 
 
 
