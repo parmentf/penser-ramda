@@ -105,8 +105,26 @@ Nous avons utilisé une fonction anonyme, mais nous pourrions aussi bien utilise
 
 ```js
 const double = x => x * 2
- 
+
 map(double, [1, 2, 3])
+```
+
+### filter/reject {#filterreject}
+
+Ensuite, voyons `filter` et `reject`. Comme son nom l'indique, `filter` sélectionne les éléments d'un tableau sur la base d'une fonction. Par exemple:
+
+```js
+const isEven = x => x % 2 === 0
+ 
+filter(isEven, [1, 2, 3, 4])  // --> [2, 4]
+```
+
+`filter`applies its function \(`isEven`in this case\) to each element of the array. Whenever the function returns a “truthy” value, the corresponding element is included in the result. Whenever the function returns a “falsy” value, the corresponding element is excluded \(filtered out\) from the array.
+
+`reject`fait exactement l'inverse. Elle garde les éléments pour lesquels la fonction renvoie une valeur fausse_ \(_NDT: _falsy_ en anglais, qui signifie équivalent au booléen _faux_ du point de vue JavaScript\), et exclut les éléments pour lesquels elle retourne une valeur vraie \(NDT: _truthy_ en anglais, là encore, cela signfie _vrai_ du point de vue JavaScript\).
+
+```js
+reject(isEven, [1, 2, 3, 4]) // --> [1, 3]
 ```
 
 
