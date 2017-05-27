@@ -41,7 +41,7 @@ Remarquez que `complement` fait la même chose sur les fonctions que ce que l'op
 
 ### Both/Either {#botheither}
 
-Disons que nous travaillons sur un système de vote. Étant donnée une personne, nous voudrions être capable de déterminer si cette personne a le droit de vote. Selon nos connaissances actuelles, une personne doit avoir au moins 18 ans et être citoyen pour avoir le droit de vote. Quelqu'un est un citoyen s'il est né dans le pays ou s'il est devenu plus tard en se faisant naturaliser.
+Disons que nous travaillons sur un système de vote. Étant donnée une personne, nous voudrions être capable de déterminer si cette personne a le droit de vote. Selon nos connaissances actuelles, une personne doit avoir au moins 18 ans et être citoyen pour avoir le droit de vote. Quelqu'un est un citoyen s'il est né dans le pays ou s'il l'est devenu plus tard en se faisant naturaliser.
 
 ```js
 const wasBornInCountry = person => person.birthCountry === OUR_COUNTRY
@@ -78,15 +78,15 @@ Quelquefois nous voulons appliquer plusieurs fonctions à des données, comme à
 const multiply = (a, b) => a * b
 const addOne = x => x + 1
 const square = x => x * x
- 
+
 const operate = (x, y) => {
   const product = multiply(x, y)
   const incremented = addOne(product)
   const squared = square(incremented)
- 
+
   return squared
 }
- 
+
 operate(3, 4) // => ((3 * 4) + 1)^2 => (12 + 1)^2 => 13^2 => 169
 ```
 
@@ -111,6 +111,4 @@ const operate = pipe(
 ```
 
 Quand nous appelons `operate(3,4)`, `pipe` passe `3` et `4` à la fonction `multiply`, dont le résultat est `12`. Elle passe ce `12` à `addOne`, qui renvoie `13`. Elle passe alors ce `13` à `square`, qui retourne `169`, et cela devient le résultat final d'`operate`.
-
-
 
