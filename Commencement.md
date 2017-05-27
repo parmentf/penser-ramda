@@ -145,9 +145,15 @@ Regardons un exemple, et développons ce qui s'y passe.
 
 ```js
 const add = (accum, value) => accum + value
- 
+
 reduce(add, 5, [1, 2, 3, 4]) // --> 15
 ```
+
+1. `reduce` appelle d'abord la fonction \(`add`\) avec la valeur initiale \(`5`\) et le premier élément du tableau \(`1`\). `add` renvoie alors la nouvelle valeur de l'accumulateur \(`5 + 1 = 6`\),
+2. `reduce` appelle à nouveau `add`, cette fois avec la nouvelle valeur de l'accumulateur \(`6`\) et la valeur suivante du tableau \(`2`\). `add` renvoie `8`,
+3. `reduce` rappelle `add` avec `8` et la valeur suivante \(`3`\), avec pour résultat `11`,
+4. `reduce` appelle `add` une dernière fois,  avec `11` et la dernière valeur du tableau \(`4`\), renvoyant `15`,
+5. `reduce` renvoie la valeur accumulée comme son résultat \(`15`\).
 
 
 
