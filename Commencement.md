@@ -75,14 +75,14 @@ Remarquez que ces fonctions sont toutes \(à l'exception de `reject`\) disponibl
 
 ### forEach {#foreach}
 
-Essayons d'utiliser la fonction `foreach `plutôt que d'écrire une boucle explicite.
+Essayons d'utiliser la fonction `foreach`plutôt que d'écrire une boucle explicite.
 
 ```js
 // Remplacer ceci:
 for (const value of myArray) {
   console.log(value)
 }
- 
+
 // par:
 forEach(value => console.log(value), myArray)
 ```
@@ -90,6 +90,24 @@ forEach(value => console.log(value), myArray)
 `forEach` prend une fonction et un tableau, puis appelle la fonction sur chaque élément du tableau.
 
 Bien que `foreach` soit la plus facile d'approche de ces fonctions, c'est la moins utilisée d'entre elles quand on fait de la programmation fonctionnelle. Elle ne renvoie aucune valeur, alors elle n'est vraiment utilisée que quand on appelle des fonctions ayant des effets de bord.
+
+### map {#map}
+
+La fonction la plus importante à apprendre ensuite est `map`. Comme`forEach`,`map`applique une fonction à chaque élément d'un tableau. Toutefois, contrairement à `forEach`, `map` rassemble les résultats de l'application de la fonction dans un nouveau tableau et le renvoie.
+
+Voici un exemple:
+
+```js
+map(x => x * 2, [1, 2, 3])  // --> [2, 4, 6]
+```
+
+Nous avons utilisé une fonction anonyme, mais nous pourrions aussi bien utiliser une fonction nommée:
+
+```js
+const double = x => x * 2
+ 
+map(double, [1, 2, 3])
+```
 
 
 
