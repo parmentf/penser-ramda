@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Commencement - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="README.html"><strong>1.</strong> Introduction</a></li><li><a href="Commencement.html" class="active"><strong>2.</strong> Commencement</a></li><li><a href="combinaison-de-fonctions.html"><strong>3.</strong> Combinaison de fonctions</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="Commencement.html#commencement" name="commencement"><h1>Commencement</h1></a>
+<p>J'utiliserai la bibliothèque <a href="http://ramdajs.com/" title="la bibliothèque javascript Ramda">Ramda</a> tout au long de ce livre, bien que la plupart des concepts exposés soient applicables à d'autres bibliothèques, comme <a href="http://underscorejs.org/" title="lien vers la bibliothèque javascript Underscore">Underscore</a> et <a href="https://lodash.com/" title="lien vers la bibliothèque javascript Lodash">Lodash</a>, ainsi qu'à d'autres langages de programmation.</p>
+<p>Je m'en tiendrai aux sujets les plus légers, les moins académiques de la programmation fonctionnelle.Ceci principalement parce que je veux garder ce livre le plus accessible au plus grand nombre, mais aussi (en partie) parce que je ne suis pas encore très avancé sur la route de la programmation fonctionnelle.</p>
+<a class="header" href="Commencement.html#ramda" name="ramda"><h2>Ramda</h2></a>
+<p>Randy Coulman avait déjà parlé du sujet sur son blog avant de commencer la série <em>Thinking in Ramda</em> :</p>
+<ul>
+<li>dans <a href="http://randycoulman.com/blog/2016/02/16/using-ramda-with-redux/">Using Ramda With Redux</a>, il a montré quelques exemples d'utilisation de Ramda dans l'écriture d'applications <a href="http://redux.js.org/">Redux</a>,</li>
+<li>dans <a href="http://randycoulman.com/blog/2016/04/19/using-redux-api-middleware-with-rails/">Using Redux-api-middleware With Rails</a>, il a utilisé Ramda pour simplifier la transformation de requêtes et de réponses (NDT: <em>request and response payloads</em>).</li>
+</ul>
+<p>Je trouve que Ramda est une bibliothèque joliment conçue qui fournit beaucoup d'outils pour faire de la programmation fonctionnelle d'une manière claire et élégante.</p>
+<p>Si vous voulez expérimenter Ramda en lisant ce livre, il y a un moyen très pratique de le faire depuis le navigateur, en utilisant la page <a href="http://ramdajs.com/repl/"><em>Try Ramda</em></a> sur le site même de Ramda.</p>
+<a class="header" href="Commencement.html#fonctions" name="fonctions"><h2>Fonctions</h2></a>
+<p>Comme son nom le suggère, la programmation fonctionnelle est une affaire de fonctions. Pour notre propos, nous définirons une fonction comme un morceau de programme appelée avec ou sans arguments et renvoyant un résultat.</p>
+<p>Voici une fonction JavaScript simple:</p>
+<pre><code class="language-js">function double(x) {
+  return x * 2
+}
+</code></pre>
+<p>Avec les fonctions fléchées (<em>arrow functions</em> en anglais), on peut écrire la même fonction avec beaucoup plus de concision. Je le mentionne dès à présent car nous allons beaucoup les utiliser.</p>
+<pre><code class="language-js">const double = x =&gt; x * 2
+</code></pre>
+<p>La plupart des langages de programmations permettent l'utilisation de fonctions.</p>
+<p>Certains langages vont plus loin, et considèrent les fonctions comme la brique de base (<em>first-class constructs</em> en anglais). Cela signifie qu'elles sont considérées comme d'autres valeurs. On peut:</p>
+<ul>
+<li>les référencer comme des variables ou des constantes,</li>
+<li>les passer en paramètres à d'autres fonctions,</li>
+<li>les renvoyer comme résultats d'autres fonctions.</li>
+</ul>
+<p>JavaScript est un de ces langages, et nous allons tirer parti de cet aspect.</p>
+<a class="header" href="Commencement.html#fonctions-pures-pure-functions" name="fonctions-pures-pure-functions"><h2>Fonctions pures {#pure-functions}</h2></a>
+<p>En écrivant des programmes fonctionnels, il devient important de ne travailler qu'avec des fonctions soit-disant <em>pures</em>.</p>
+<p>Les fonctions pures sont des fonctions qui n'ont pas d'effet de bord. Elle n'affectent aucune variable externe, elles ne lisent pas l'entrée standard, n'écrivent pas dans la sortie standard, elles ne lisent ni n'écrivent dans une base de données, elles ne modifient pas les paramètres qu'elles reçoivent, etc.</p>
+<p>L'idée de base est que, si vous appelez une fonction avec les mêmes données encore et encore, vous obtiendrez toujours le même résultat.</p>
+<p>Vous pouvez évidemment faire des choses avec des fonctions impures (et vous devez le faire, si votre programme doit faire quelque chose d'intéressant), mais pour l'essentiel, vous voudrez garder vos fonctions pures.</p>
+<a class="header" href="Commencement.html#immutabilité-immutability" name="immutabilité-immutability"><h2>Immutabilité {#immutability}</h2></a>
+<p>Un autre concept important dans la programmation fonctionnelle est celui d'<em>immutabilité</em>. Qu'est-ce que ça signifie? <em>Immutable</em> veut dire <em>inchangeable</em>.</p>
+<p>Quand je travaille de manière immutable, une fois que l'initialise une valeur ou un objet, je ne le/la modifie plus jamais. Cela signifie que je ne change pas les éléments d'un tableau ou les propriétés d'un objet.</p>
+<p>Si j'ai besoin de changer quelque chose dans un tableau ou un objet, j'en renvoie une nouvelle copie avec la valeur modifiée. Nous en reparlerons en détails.</p>
+<p>L'immutabilité travaille main dans la main avec les fonctions pures. Comme il est interdit aux fonctions pures d'entraîner des effets de bord, il leur est interdit de modifier des structures de données qui leur sont externes. Elles sont forcées de travailler les données de manière immutable.</p>
+<a class="header" href="Commencement.html#par-où-commencer--where-to-start" name="par-où-commencer--where-to-start"><h2>Par où commencer ? {#where-to-start}</h2></a>
+<p>La façon la plus simple de commencer à penser fonctionnellement est de remplacer les boucles par des fonctions <em>collection-iteration</em> (NDT: itération-collection?)</p>
+<p>Si vous venez d'un autre langage qui possède ces fonctions (Ruby et Smalltalk en sont quelques exemples), elles vous sont peut-être déjà familières.</p>
+<p>Martin Fowler a une paire d'articles intéressants (NDT: <em>great</em>, c'est sûrement mieux que ça) à propos des <em>pipelines de collections</em> qui montrent <a href="http://martinfowler.com/articles/collection-pipeline/">comment utiliser ces fonctions</a>, et comment <a href="http://martinfowler.com/articles/refactoring-pipelines.html"><em>refactorer</em> du code existant en pipelines de collections</a>.</p>
+<p>Remarquez que ces fonctions sont toutes (à l'exception de <code>reject</code>) disponibles sur <code>Array.prototype</code>, donc vous n'avez pas strictement besoin de Ramda pour les utiliser. Néanmoins, j'utiliserai les versions Ramda pour une question de cohérence avec la suite du livre.</p>
+<a class="header" href="Commencement.html#foreach-foreach" name="foreach-foreach"><h3>forEach {#foreach}</h3></a>
+<p>Essayons d'utiliser la fonction <code>foreach</code>plutôt que d'écrire une boucle explicite.</p>
+<pre><code class="language-js">// Remplacer ceci:
+for (const value of myArray) {
+  console.log(value)
+}
+
+// par:
+forEach(value =&gt; console.log(value), myArray)
+</code></pre>
+<p><code>forEach</code> prend une fonction et un tableau, puis appelle la fonction sur chaque élément du tableau.</p>
+<p>Bien que <code>foreach</code> soit la plus facile d'approche de ces fonctions, c'est la moins utilisée d'entre elles quand on fait de la programmation fonctionnelle. Elle ne renvoie aucune valeur, alors elle n'est vraiment utilisée que quand on appelle des fonctions ayant des effets de bord.</p>
+<a class="header" href="Commencement.html#map-map" name="map-map"><h3>map {#map}</h3></a>
+<p>La fonction la plus importante à apprendre ensuite est <code>map</code>. Comme<code>forEach</code>,<code>map</code>applique une fonction à chaque élément d'un tableau. Toutefois, contrairement à <code>forEach</code>, <code>map</code> rassemble les résultats de l'application de la fonction dans un nouveau tableau et le renvoie.</p>
+<p>Voici un exemple:</p>
+<pre><code class="language-js">map(x =&gt; x * 2, [1, 2, 3])  // --&gt; [2, 4, 6]
+</code></pre>
+<p>Nous avons utilisé une fonction anonyme, mais nous pourrions aussi bien utiliser une fonction nommée:</p>
+<pre><code class="language-js">const double = x =&gt; x * 2
+
+map(double, [1, 2, 3])
+</code></pre>
+<a class="header" href="Commencement.html#filterreject-filterreject" name="filterreject-filterreject"><h3>filter/reject {#filterreject}</h3></a>
+<p>Ensuite, voyons <code>filter</code> et <code>reject</code>. Comme son nom l'indique, <code>filter</code> sélectionne les éléments d'un tableau sur la base d'une fonction. Par exemple:</p>
+<pre><code class="language-js">const isEven = x =&gt; x % 2 === 0
+
+filter(isEven, [1, 2, 3, 4])  // --&gt; [2, 4]
+</code></pre>
+<p><code>filter</code>applies its function (<code>isEven</code>in this case) to each element of the array. Whenever the function returns a “truthy” value, the corresponding element is included in the result. Whenever the function returns a “falsy” value, the corresponding element is excluded (filtered out) from the array.</p>
+<p><code>reject</code>fait exactement l'inverse. Elle garde les éléments pour lesquels la fonction renvoie une valeur fausse_ (_NDT: _falsy_ en anglais, qui signifie équivalent au booléen <em>faux</em> du point de vue JavaScript), et exclut les éléments pour lesquels elle retourne une valeur vraie (NDT: <em>truthy</em> en anglais, là encore, cela signfie <em>vrai</em> du point de vue JavaScript).</p>
+<pre><code class="language-js">reject(isEven, [1, 2, 3, 4]) // --&gt; [1, 3]
+</code></pre>
+<a class="header" href="Commencement.html#find-find" name="find-find"><h3>find {#find}</h3></a>
+<p><code>find</code>applique une fonction à chaque élément d'un tableau, et renvoie le premier élément pour lequel la fonctions retourne une valeur vraie (NDT: <em>truthy</em>).</p>
+<pre><code class="language-js">find(isEven, [1, 2, 3, 4]) // --&gt; 2
+</code></pre>
+<a class="header" href="Commencement.html#reduce-reduce" name="reduce-reduce"><h3>reduce {#reduce}</h3></a>
+<p><code>reduce</code>est un peu plus compliquée  que les autres fonctions que nous avons vues jusqu'à présent. C'est la peine de la connaître, mais si vous avez du mal à comprendre au premier abord, ne vous laissez pas arrêter par cette impression. Vous pouvez aller loin sans la comprendre.<code>reduce</code>prend en paramètres une fonction à deux arguments, une valeur initiale, et un tableau à traiter.</p>
+<p>Le premier argument que nous passons à la fonction est appelé l'<em>accumulateur</em>, et le second est la valeur venant du tableau. La fonction doit retourner la nouvelle valeur de l'accumulateur.</p>
+<p>Regardons un exemple, et développons ce qui s'y passe.</p>
+<pre><code class="language-js">const add = (accum, value) =&gt; accum + value
+
+reduce(add, 5, [1, 2, 3, 4]) // --&gt; 15
+</code></pre>
+<ol>
+<li><code>reduce</code> appelle d'abord la fonction (<code>add</code>) avec la valeur initiale (<code>5</code>) et le premier élément du tableau (<code>1</code>). <code>add</code> renvoie alors la nouvelle valeur de l'accumulateur (<code>5 + 1 = 6</code>),</li>
+<li><code>reduce</code> appelle à nouveau <code>add</code>, cette fois avec la nouvelle valeur de l'accumulateur (<code>6</code>) et la valeur suivante du tableau (<code>2</code>). <code>add</code> renvoie <code>8</code>,</li>
+<li><code>reduce</code> rappelle <code>add</code> avec <code>8</code> et la valeur suivante (<code>3</code>), avec pour résultat <code>11</code>,</li>
+<li><code>reduce</code> appelle <code>add</code> une dernière fois,  avec <code>11</code> et la dernière valeur du tableau (<code>4</code>), renvoyant <code>15</code>,</li>
+<li><code>reduce</code> renvoie la valeur accumulée comme son résultat (<code>15</code>).</li>
+</ol>
+<a class="header" href="Commencement.html#conclusion" name="conclusion"><h2>Conclusion</h2></a>
+<p>En commençant par ces fonctions <em>itération-collection</em>, vous pouvez vous faire à l'idée de passer des fonctions à d'autres fonctions. Vous pouvez les avoir utilisées dans d'autres langages sans même vous rendre compte que vous étiez en train de faire de la programmation fonctionnelle.</p>
+<a class="header" href="Commencement.html#chapitre-suivant" name="chapitre-suivant"><h2>Chapitre suivant</h2></a>
+<p>Le prochain chapitre,<a href="/combinaison-de-fonctions.md"> Combinaison de fonctions</a>, montre comment nous pouvons aller un peu plus loin et commencer à combiner des fonctions d'une manière nouvelle et intéressante.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="README.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="combinaison-de-fonctions.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="README.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="combinaison-de-fonctions.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

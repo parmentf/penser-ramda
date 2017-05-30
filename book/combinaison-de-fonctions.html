@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Combinaison de fonctions - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="README.html"><strong>1.</strong> Introduction</a></li><li><a href="Commencement.html"><strong>2.</strong> Commencement</a></li><li><a href="combinaison-de-fonctions.html" class="active"><strong>3.</strong> Combinaison de fonctions</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="combinaison-de-fonctions.html#combinaison-de-fonctions" name="combinaison-de-fonctions"><h1>Combinaison de fonctions</h1></a>
+<p>Dans le premier chapitre, j'ai présenté Ramda et quelques concepts basiques de programmation fonctionnelle, comme les fonctions, les fonctions pures, et l'immutabilité. J'ai alors suggérer qu'une bonne manière de commencer était d'utiliser les fonction <em>itération-collection</em> comme <code>forEach</code>, <code>map</code>, <code>select</code>, et consorts.</p>
+<a class="header" href="combinaison-de-fonctions.html#combinaisons-simples" name="combinaisons-simples"><h2>Combinaisons simples</h2></a>
+<p>Une fois que vous vous êtes fait à l'idée de passer des fonctions à d'autres fonctions, vous pourriez tomber sur des situtations où vous voudriez combiner plusieurs fonctions.</p>
+<p>Ramda fournit plusieurs fonctions pour les combinaisons simples. Voyons-en quelques unes.</p>
+<a class="header" href="combinaison-de-fonctions.html#complement-complement" name="complement-complement"><h3>Complement {#complement}</h3></a>
+<p>Dans le précédent chapitre, nous avons utilisé <code>find</code> pour trouver le premier nombre pair d'une liste:</p>
+<pre><code class="language-js">const isEven = x =&gt; x % 2 === 0
+
+find(isEven, [1, 2, 3, 4]) // --&gt; 2
+</code></pre>
+<p>Et si nous voulions trouver le premier nombre impair à la place? Nous pouvons toujours écrire une fonction <code>isOdd</code>et l'utiliser, mais nous savons qu'un nombre qui n'est pas pair est impair. Réutilisons notre fonction <code>isEven</code>.</p>
+<p>Ramda fournit une fonction d'ordre supérieur (NDT: <em>higher-order function</em>), <code>complement</code>, qui prend une autre fonction et retourne une nouvelle fonction <code>true</code> quand la fonction original renvoie une valeur fausse (NDT: <em>falsy value</em>), et <code>false</code> quand la fonction originale renvoie une valeur vraie (NDT: <em>truthy value</em>).</p>
+<pre><code class="language-js">const isEven = x =&gt; x % 2 === 0
+
+find(complement(isEven), [1, 2, 3, 4]) // --&gt; 1
+</code></pre>
+<p>C'est encore mieux de donner à la fonction <code>complement</code>ée son propre nom, pour qu'on puisse la réutiliser:</p>
+<pre><code class="language-js">const isEven = x =&gt; x % 2 === 0
+const isOdd = complement(isEven)
+
+find(isOdd, [1, 2, 3, 4]) // --&gt; 1
+</code></pre>
+<p>Remarquez que <code>complement</code> fait la même chose sur les fonctions que ce que l'opérateur <code>!</code> (non) fait sur les valeurs.</p>
+<a class="header" href="combinaison-de-fonctions.html#botheither-botheither" name="botheither-botheither"><h3>Both/Either {#botheither}</h3></a>
+<p>Disons que nous travaillons sur un système de vote. Étant donnée une personne, nous voudrions être capable de déterminer si cette personne a le droit de vote. Selon nos connaissances actuelles, une personne doit avoir au moins 18 ans et être citoyen pour avoir le droit de vote. Quelqu'un est un citoyen s'il est né dans le pays ou s'il l'est devenu plus tard en se faisant naturaliser.</p>
+<pre><code class="language-js">const wasBornInCountry = person =&gt; person.birthCountry === OUR_COUNTRY
+const wasNaturalized = person =&gt; Boolean(person.naturalizationDate)
+const isOver18 = person =&gt; person.age &gt;= 18
+
+const isCitizen = person =&gt; wasBornInCountry(person) || wasNaturalized(person)
+
+const isEligibleToVote = person =&gt; isOver18(person) &amp;&amp; isCitizen(person)
+</code></pre>
+<p>Ce que nous avons écrit ci-dessus fonctionne, mais Ramda fournit quelques fonctions pratiques pour nous aider à rendre ce code un peu plus propre.</p>
+<p><code>both</code>prend deux autres fonctions et renvoie une nouvelle fonction qui retourne <code>true</code>si les deux fonctions renvoient une valeur vraie quand elles sont appliquées à leurs arguments, et <code>false</code> sinon.</p>
+<p><code>either</code>prend deux autres fonctions et renvoie une nouvelle fonction qui retourne <code>true</code>si l'une ou l'autre des fonctions renvoie une valeur vrai quand elles sont appliquées à leurs arguments, et <code>false</code> sinon.</p>
+<p>En utilisant ces deux fonctions, nous pouvons simplifier <code>isCitizen</code> et <code>isEligibleToVote</code>:</p>
+<pre><code class="language-js">const isCitizen = either(wasBornInCountry, wasNaturalized)
+const isEligibleToVote = both(isOver18, isCitizen)
+</code></pre>
+<p>Remarquez que <code>both</code> fait la même chose avec des fonctions que ce que l'opérateur <code>&amp;&amp;</code> fait pour des valeurs, et que <code>either</code> fait la même chose avec des fonctions que ce que l'opérateur <code>||</code> fait avec des valeurs.</p>
+<p>Ramda fournit aussi <code>allPass</code> et <code>anyPass</code>, qui prennent un tableau de fonctions de taille quelconque. Comme leurs noms le suggèrent, <code>allPass</code> fonctionne comme <code>both</code>, et <code>anyPass</code> comme <code>either</code>.</p>
+<a class="header" href="combinaison-de-fonctions.html#pipelines-pipelines" name="pipelines-pipelines"><h2>Pipelines {#pipelines}</h2></a>
+<p>Quelquefois nous voulons appliquer plusieurs fonctions à des données, comme à travers un <em>pipeline</em>. Par exemple, nous pourrions vouloir prendre deux nombres, multiplier l'un par l'autre, ajouter un et mettre le résultat au carré. Nous pourrions l'écrire comme ceci:</p>
+<pre><code class="language-js">const multiply = (a, b) =&gt; a * b
+const addOne = x =&gt; x + 1
+const square = x =&gt; x * x
+
+const operate = (x, y) =&gt; {
+  const product = multiply(x, y)
+  const incremented = addOne(product)
+  const squared = square(incremented)
+
+  return squared
+}
+
+operate(3, 4) // =&gt; ((3 * 4) + 1)^2 =&gt; (12 + 1)^2 =&gt; 13^2 =&gt; 169
+</code></pre>
+<p>Notez que chaque opération est appliquée au résultat de la précédente.</p>
+<a class="header" href="combinaison-de-fonctions.html#pipe-pipe" name="pipe-pipe"><h3>pipe {#pipe}</h3></a>
+<p>Ramda fournit la fonction <code>pipe</code>, qui prend une liste d'une ou plusieurs fonctions, et renvoie une nouvelle fonction.</p>
+<p>Cette nouvelle fonction prendre le même nombre d'arguments que la première fonction qu'on a donné. Elle fait alors passer ces arguments à travers un &quot;tuyau&quot; (NDT: <em>pipes</em>) composé de toutes les fonctions de la liste. Elle applique la première fonction aux arguments, passe son résultat à la deuxième fonction, etc. Le résultat de la dernière fonction est le résultat de l'appel à <code>pipe</code>.</p>
+<p>Remarquez que toutes les fonctions après la première ne doivent prendre qu'un seul argument.</p>
+<p>Sachant cela, nous pouvons utiliser <code>pipe</code> pour simplifier notre fonction <code>operate</code>:</p>
+<pre><code class="language-js">const operate = pipe(
+  multiply,
+  addOne,
+  square
+)
+</code></pre>
+<p>Quand nous appelons <code>operate(3,4)</code>, <code>pipe</code> passe <code>3</code> et <code>4</code> à la fonction <code>multiply</code>, dont le résultat est <code>12</code>. Elle passe ce <code>12</code> à <code>addOne</code>, qui renvoie <code>13</code>. Elle passe alors ce <code>13</code> à <code>square</code>, qui retourne <code>169</code>, et cela devient le résultat final d'<code>operate</code>.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="Commencement.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+
+            </div>
+
+            
+                <a href="Commencement.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>
