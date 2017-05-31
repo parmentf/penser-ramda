@@ -1,6 +1,6 @@
 # Combinaison de fonctions
 
-Dans le premier chapitre, j'ai présenté Ramda et quelques concepts basiques de programmation fonctionnelle, comme les fonctions, les fonctions pures, et l'immutabilité. J'ai alors suggérer qu'une bonne manière de commencer était d'utiliser les fonction _itération-collection_ comme `forEach`, `map`, `select`, et consorts.
+Dans le premier chapitre, j'ai présenté Ramda et quelques concepts basiques de programmation fonctionnelle, comme les fonctions, les fonctions pures, et l'immutabilité. J'ai alors suggéré qu'une bonne manière de commencer était d'utiliser les fonction _itération-collection_ comme `forEach`, `map`, `select`, et consorts.
 
 ## Combinaisons simples
 
@@ -112,3 +112,28 @@ const operate = pipe(
 
 Quand nous appelons `operate(3,4)`, `pipe` passe `3` et `4` à la fonction `multiply`, dont le résultat est `12`. Elle passe ce `12` à `addOne`, qui renvoie `13`. Elle passe alors ce `13` à `square`, qui retourne `169`, et cela devient le résultat final d'`operate`.
 
+### compose
+
+Une autre façon pour écrire notre fonction `operate` originale aurait été d'intégrer (NDT: _to inline_) toutes les variables temporaires:
+
+```js
+const operate = (x, y) => square(addOne(multiply(x, y)))
+```
+
+C'est bien plus compact, mais un peu plus dur à lire. Dans cette forme pourtant, on a envie de le réécrire en utilisant la fonction `compose` de Ramda.
+
+`compose` fonctionne exactement de la même manière que `pipe`, excepté qu'elle applique les fonctions de droite à gauche, et non de gauche à droite. Écrivons `operate` avec `compose`:
+
+```js
+const operate = compose(
+  square,
+  addOne,
+  multiply
+)
+```
+
+C'est la même chose que le `pipe` précédent, mais avec les fonctions dans l'ordre inverse. En fait, la fonction `compose` de Ramda est écrite avec `pipe`.
+
+Je pense toujours `compose` de cette manière: `compose(f, g)(value)` est équivalent à `f(g(value))`.
+
+Comme avec `pipe`, remarquez que toutes les fonctions sauf la dernière ne doivent prendre qu'un seul paramètre.
