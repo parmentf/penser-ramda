@@ -144,5 +144,13 @@ Je crois que `pipe` est plus simple à comprendre quand on a l'habitude de la pr
 
 Je n'ai pas encore trouvé de bonne règle pour décider quand il faut préférer `compose`et quand il faut préférer `pipe`. Comme ils sont équivalents en Ramda, choisir l'une ou l'autre n'a probablement pas grande importance. Choisissez simplement celle qui ce lit le mieux dans le contexte.
 
+## Conclusion {#conclusion}
 
+En combinant plusieurs fonctions d'une certaine manière, on peut commencer à écrire des fonctions plus puissantes \(NDT: _powerful_\).
+
+## Next {#next}
+
+Vous avez peut-être remarqué que nous avons la plupart du temps ignoré les arguments des fonctions, en les combinant. Nous ne fournissons les arguments qu'au moment où nous appelons la fonction combinée \(NDT: _combined function_, peut-être "fonction combinaison" serait-il meilleur, mais ça ne sonne pas très bien\).
+
+C'est habituel en programmation fonctionnelle, et nous allons en parler beaucoup plus dans le prochain chapitre, [Application partielle](/application-partielle.md). Nous y parlons aussi de la manière de combiner des fonctions qui prennent plus qu'un argument.
 
