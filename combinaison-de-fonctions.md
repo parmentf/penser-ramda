@@ -148,7 +148,7 @@ Je n'ai pas encore trouvé de bonne règle pour décider quand il faut préfére
 
 En combinant plusieurs fonctions d'une certaine manière, on peut commencer à écrire des fonctions plus puissantes \(NDT: _powerful_\).
 
-## Next {#next}
+## Chapitre suivant {#next}
 
 Vous avez peut-être remarqué que nous avons la plupart du temps ignoré les arguments des fonctions, en les combinant. Nous ne fournissons les arguments qu'au moment où nous appelons la fonction combinée \(NDT: _combined function_, peut-être "fonction combinaison" serait-il meilleur, mais ça ne sonne pas très bien\).
 
