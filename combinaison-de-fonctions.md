@@ -114,7 +114,7 @@ Quand nous appelons `operate(3,4)`, `pipe` passe `3` et `4` à la fonction `mult
 
 ### compose
 
-Une autre façon pour écrire notre fonction `operate` originale aurait été d'intégrer (NDT: _to inline_) toutes les variables temporaires:
+Une autre façon pour écrire notre fonction `operate` originale aurait été d'intégrer \(NDT: _to inline_\) toutes les variables temporaires:
 
 ```js
 const operate = (x, y) => square(addOne(multiply(x, y)))
@@ -137,3 +137,12 @@ C'est la même chose que le `pipe` précédent, mais avec les fonctions dans l'o
 Je pense toujours `compose` de cette manière: `compose(f, g)(value)` est équivalent à `f(g(value))`.
 
 Comme avec `pipe`, remarquez que toutes les fonctions sauf la dernière ne doivent prendre qu'un seul paramètre.
+
+### compose ou pipe ? {#compose-or-pipe}
+
+Je crois que `pipe` est plus simple à comprendre quand on a l'habitude de la programmation impérative, parce qu'on lit les fonctions de gauche à droite. Par contre, `compose` est un peu plus facile à traduire en fonction imbriquée \(NDT: ?\) comme je l'ai montré plus haut.
+
+Je n'ai pas encore trouvé de bonne règle pour décider quand il faut préférer `compose`et quand il faut préférer `pipe`. Comme ils sont équivalents en Ramda, choisir l'une ou l'autre n'a probablement pas grande importance. Choisissez simplement celle qui ce lit le mieux dans le contexte.
+
+
+
