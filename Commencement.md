@@ -43,7 +43,7 @@ Certains langages vont plus loin, et considèrent les fonctions comme la brique 
 
 JavaScript est un de ces langages, et nous allons tirer parti de cet aspect.
 
-## Fonctions pures {#pure-functions}
+## Fonctions pures
 
 En écrivant des programmes fonctionnels, il devient important de ne travailler qu'avec des fonctions soit-disant _pures_.
 
@@ -53,7 +53,7 @@ L'idée de base est que, si vous appelez une fonction avec les mêmes données e
 
 Vous pouvez évidemment faire des choses avec des fonctions impures \(et vous devez le faire, si votre programme doit faire quelque chose d'intéressant\), mais pour l'essentiel, vous voudrez garder vos fonctions pures.
 
-## Immutabilité {#immutability}
+## Immutabilité
 
 Un autre concept important dans la programmation fonctionnelle est celui d'_immutabilité_. Qu'est-ce que ça signifie? _Immutable_ veut dire _inchangeable_.
 
@@ -63,7 +63,7 @@ Si j'ai besoin de changer quelque chose dans un tableau ou un objet, j'en renvoi
 
 L'immutabilité travaille main dans la main avec les fonctions pures. Comme il est interdit aux fonctions pures d'entraîner des effets de bord, il leur est interdit de modifier des structures de données qui leur sont externes. Elles sont forcées de travailler les données de manière immutable.
 
-## Par où commencer ? {#where-to-start}
+## Par où commencer ?
 
 La façon la plus simple de commencer à penser fonctionnellement est de remplacer les boucles par des fonctions _collection-iteration_ \(NDT: itération-collection?\)
 
@@ -73,9 +73,9 @@ Martin Fowler a une paire d'articles intéressants \(NDT: _great_, c'est sûreme
 
 Remarquez que ces fonctions sont toutes \(à l'exception de `reject`\) disponibles sur `Array.prototype`, donc vous n'avez pas strictement besoin de Ramda pour les utiliser. Néanmoins, j'utiliserai les versions Ramda pour une question de cohérence avec la suite du livre.
 
-### forEach {#foreach}
+### forEach
 
-Essayons d'utiliser la fonction `foreach`plutôt que d'écrire une boucle explicite.
+Essayons d'utiliser la fonction `forEach` plutôt que d'écrire une boucle explicite.
 
 ```js
 // Remplacer ceci:
@@ -89,11 +89,11 @@ forEach(value => console.log(value), myArray)
 
 `forEach` prend une fonction et un tableau, puis appelle la fonction sur chaque élément du tableau.
 
-Bien que `foreach` soit la plus facile d'approche de ces fonctions, c'est la moins utilisée d'entre elles quand on fait de la programmation fonctionnelle. Elle ne renvoie aucune valeur, alors elle n'est vraiment utilisée que quand on appelle des fonctions ayant des effets de bord.
+Bien que `forEach` soit la plus facile d'approche de ces fonctions, c'est la moins utilisée d'entre elles quand on fait de la programmation fonctionnelle. Elle ne renvoie aucune valeur, alors elle n'est vraiment utilisée que quand on appelle des fonctions ayant des effets de bord.
 
-### map {#map}
+### map
 
-La fonction la plus importante à apprendre ensuite est `map`. Comme`forEach`,`map`applique une fonction à chaque élément d'un tableau. Toutefois, contrairement à `forEach`, `map` rassemble les résultats de l'application de la fonction dans un nouveau tableau et le renvoie.
+La fonction la plus importante à apprendre ensuite est `map`. Comme`forEach`, `map`applique une fonction à chaque élément d'un tableau. Toutefois, contrairement à `forEach`, `map` rassemble les résultats de l'application de la fonction dans un nouveau tableau et le renvoie.
 
 Voici un exemple:
 
@@ -109,7 +109,7 @@ const double = x => x * 2
 map(double, [1, 2, 3])
 ```
 
-### filter/reject {#filterreject}
+### filter/reject
 
 Ensuite, voyons `filter` et `reject`. Comme son nom l'indique, `filter` sélectionne les éléments d'un tableau sur la base d'une fonction. Par exemple:
 
@@ -119,25 +119,25 @@ const isEven = x => x % 2 === 0
 filter(isEven, [1, 2, 3, 4])  // --> [2, 4]
 ```
 
-`filter`applies its function \(`isEven`in this case\) to each element of the array. Whenever the function returns a “truthy” value, the corresponding element is included in the result. Whenever the function returns a “falsy” value, the corresponding element is excluded \(filtered out\) from the array.
+`filter` applique sa fonction \(`isEven` dans ce cas\) à chaque élément du tableau. Dès que la fonction renvoie une valeur vrai (NDT: _truthy_), l'élément correspondant est inclus dans le résultat. Dès que la valeur renvoyée est fausse (NDT: _falsy_), l'élément correspondant est exclus du tableau.
 
-`reject`fait exactement l'inverse. Elle garde les éléments pour lesquels la fonction renvoie une valeur fausse_ \(\_NDT: \_falsy_ en anglais, qui signifie équivalent au booléen _faux_ du point de vue JavaScript\), et exclut les éléments pour lesquels elle retourne une valeur vraie \(NDT: _truthy_ en anglais, là encore, cela signfie _vrai_ du point de vue JavaScript\).
+`reject` fait exactement l'inverse. Elle garde les éléments pour lesquels la fonction renvoie une valeur fausse \(NDT: _falsy_ en anglais, qui signifie équivalent au booléen _faux_ du point de vue JavaScript\), et exclut les éléments pour lesquels elle retourne une valeur vraie \(NDT: _truthy_ en anglais, là encore, cela signfie _vrai_ du point de vue JavaScript\).
 
 ```js
 reject(isEven, [1, 2, 3, 4]) // --> [1, 3]
 ```
 
-### find {#find}
+### find
 
-`find`applique une fonction à chaque élément d'un tableau, et renvoie le premier élément pour lequel la fonctions retourne une valeur vraie \(NDT: _truthy_\).
+`find` applique une fonction à chaque élément d'un tableau, et renvoie le premier élément pour lequel la fonctions retourne une valeur vraie \(NDT: _truthy_\).
 
 ```js
 find(isEven, [1, 2, 3, 4]) // --> 2
 ```
 
-### reduce {#reduce}
+### reduce
 
-`reduce`est un peu plus compliquée  que les autres fonctions que nous avons vues jusqu'à présent. C'est la peine de la connaître, mais si vous avez du mal à comprendre au premier abord, ne vous laissez pas arrêter par cette impression. Vous pouvez aller loin sans la comprendre.`reduce`prend en paramètres une fonction à deux arguments, une valeur initiale, et un tableau à traiter.
+`reduce` est un peu plus compliquée que les autres fonctions que nous avons vues jusqu'à présent. C'est la peine de la connaître, mais si vous avez du mal à comprendre au premier abord, ne vous laissez pas arrêter par cette impression. Vous pouvez aller loin sans la comprendre. `reduce` prend en paramètres une fonction à deux arguments, une valeur initiale, et un tableau à traiter.
 
 Le premier argument que nous passons à la fonction est appelé l'_accumulateur_, et le second est la valeur venant du tableau. La fonction doit retourner la nouvelle valeur de l'accumulateur.
 
@@ -161,5 +161,5 @@ En commençant par ces fonctions _itération-collection_, vous pouvez vous faire
 
 ## Chapitre suivant
 
-Le prochain chapitre,[ Combinaison de fonctions](/combinaison-de-fonctions.md), montre comment nous pouvons aller un peu plus loin et commencer à combiner des fonctions d'une manière nouvelle et intéressante.
+Le prochain chapitre, [Combinaison de fonctions](/combinaison-de-fonctions.md), montre comment nous pouvons aller un peu plus loin et commencer à combiner des fonctions d'une manière nouvelle et intéressante.
 
