@@ -56,3 +56,37 @@ const titlesForYear = (books, year) => {
 
 Maintenant, quand nous appelons `filter`, `publishedInYear(year)` est évaluée immédiatement, retournant une fonction qui prend un `book`, ce qui est exactement ce dont `filter` a besoin.
 
+## Application partielle de fonctions {#partially-applying-functions}
+
+Nous pouvons réécrire toute fonction multi-arguments de cette manière si nous le souhaitons, mais nous n'avons pas la main sur toutes les fonctions que nous voudrions utiliser. De plus, nous pourrions vouloir utiliser des fonctions multi-arguments de la manière habituelle.
+
+Par exemple, si nous avions un autre programme qui voulait seulement vérifier qu'un livre a été publié une année donnée, nous aimerions écrire `publishedInYear(book, 2012)`, mais nous ne pouvons plus le faire. À la place, nous devons écrire `publishedInYear(2012)(book)`. C'est moins lisible et plus embêtant.
+
+Heureusement, Ramda propose deux fonctions pour nous aider: `partial`et `partialRight`.
+
+Ces deux fonctions permettent d'appeler une fonction quelconque avec moins d'arguments qu'elle n'en réclame. Elles renvoient toutes les deux une nouvelle fonction qui prend les paramètres manquants et appelle la fonction originale une fois que tous les arguments ont été fournis.
+
+La différence entre `partial` et `partialRight` tiens dans le fait que nous donnons les arguments en commençant par le paramètre le plus à gauche ou le plus à droite de la fonction originale.
+
+Retournons à notre exemple originel et utilisons une de ces fonctions au lieu de réécrire `publishedInYear`. Comme nous ne voulons passer que l'année, et que c'est l'argument le plu sà droite, nous allons utiliser `partialRight`.
+
+```js
+const publishedInYear = (book, year) => book.year === year
+ 
+const titlesForYear = (books, year) => {
+  const selected = filter(partialRight(publishedInYear, [year]), books)
+ 
+  return map(book => book.title, selected)
+}
+```
+
+Si nous avions d'abord écrit une fonction `publishedInYear` prenant `(year, book)`au lieu de `(book, year)`, nous aurions pris `partial` à la place de `partialRight`.
+
+Remarquez que les paramètres fournis à `partial` et `partialRight` doivent toujours se trouver dans un tableau, même quand il n'y en qu'un. Je ne saurais vous dire combien de fois je l'ai oublié, et obtenu un message d'erreur déroutant.
+
+```
+First argument to _arity must be a non-negative integer no greater than ten
+```
+
+
+
