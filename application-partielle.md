@@ -56,7 +56,7 @@ const titlesForYear = (books, year) => {
 
 Maintenant, quand nous appelons `filter`, `publishedInYear(year)` est évaluée immédiatement, retournant une fonction qui prend un `book`, ce qui est exactement ce dont `filter` a besoin.
 
-## Application partielle de fonctions {#partially-applying-functions}
+## Application partielle de fonctions
 
 Nous pouvons réécrire toute fonction multi-arguments de cette manière si nous le souhaitons, mais nous n'avons pas la main sur toutes les fonctions que nous voudrions utiliser. De plus, nous pourrions vouloir utiliser des fonctions multi-arguments de la manière habituelle.
 
@@ -88,7 +88,7 @@ Remarquez que les paramètres fournis à `partial` et `partialRight` doivent tou
 First argument to _arity must be a non-negative integer no greater than ten
 ```
 
-## Curryfication {#curry}
+## Curryfication
 
 Devoir utiliser `partial` et `partialRight` partout rend la programmation verbeuse et fastidieuse. Mais devoir appeler des fonctions multi-arguments comme des séries de fonctions à un seul argument est lourd aussi.
 
@@ -118,7 +118,7 @@ const titlesForYear = (books, year) => {
 
 Nous pouvons de nouveau appeler `publishedInYear` avec `year` pour seul paramètre et recevoir une fonction qui prend un `book` et exécute notre fonction originale. Cependant, nous pouvons encore l'appeler normalement avec `publishedInYear(2012, book)` sans l'ennuyeuse syntaxe `)(`. Le meilleur des deux mondes!
 
-## Ordre des paramètres {#argument-order}
+## Ordre des paramètres
 
 Remarquez que pour que `curry` marche pour nous, nous avons dû inverser l'ordre des paramètres. C'est très courant en programmation fonctionnelle, et c'est pourquoi toutes les fonctions Ramda sont écrites pour que les données soient passées en dernière position.
 
