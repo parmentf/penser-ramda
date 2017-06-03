@@ -126,5 +126,26 @@ Les paramètres précédents peuvent être vus comme la configuration du traitem
 
 Nous en avons déjà vu des exemples avec les fonctions d'itération de collection. Elles prennent toute la collection en dernier argument car cela rend ce style de programmation plus facile.
 
+## Arguments dans le mauvais ordre
 
+Que se passerait-il si nous avions laissé l'ordre original des arguments de `publishedInYear`? Comment pourrions-nous encore tirer parti de sa nature curryfiée?
 
+Ramda propose quelques options.
+
+### Flip
+
+La première option est `flip`. `flip` prend une fonction à deux arguments plus et retourne une nouvelle fonction qui prend les mêmes arguments mais échange l'ordre des deux premiers arguments. C'est principalement utilisé pour les fonction à deux arguments, mais c'est plus général que ça.
+
+En utilisant `flip`, on peut revenir à l'ordre original des arguments pour `publishedInYear`:
+
+```js
+const publishedInYear = curry((book, year) => book.year === year)
+ 
+const titlesForYear = (books, year) => {
+  const selected = filter(flip(publishedInYear)(year), books)
+ 
+  return map(book => book.title, selected)
+}
+```
+
+Dans la plupart des cas, je préfère utiliser l'ordre des arguments le plus pratique, mais si vous avez besoin d'utiliser une fonction que vous ne contrôlez pas, `flip` est une aide appréciable.
