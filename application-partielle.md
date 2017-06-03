@@ -62,11 +62,11 @@ Nous pouvons réécrire toute fonction multi-arguments de cette manière si nous
 
 Par exemple, si nous avions un autre programme qui voulait seulement vérifier qu'un livre a été publié une année donnée, nous aimerions écrire `publishedInYear(book, 2012)`, mais nous ne pouvons plus le faire. À la place, nous devons écrire `publishedInYear(2012)(book)`. C'est moins lisible et plus embêtant.
 
-Heureusement, Ramda propose deux fonctions pour nous aider: `partial`et `partialRight`.
+Heureusement, Ramda propose deux fonctions pour nous aider: `partial` et `partialRight`.
 
 Ces deux fonctions permettent d'appeler une fonction quelconque avec moins d'arguments qu'elle n'en réclame. Elles renvoient toutes les deux une nouvelle fonction qui prend les paramètres manquants et appelle la fonction originale une fois que tous les arguments ont été fournis.
 
-La différence entre `partial` et `partialRight` tiens dans le fait que nous donnons les arguments en commençant par le paramètre le plus à gauche ou le plus à droite de la fonction originale.
+La différence entre `partial` et `partialRight` tient dans le fait que nous donnons les arguments en commençant par le paramètre le plus à gauche ou le plus à droite de la fonction originale.
 
 Retournons à notre exemple originel et utilisons une de ces fonctions au lieu de réécrire `publishedInYear`. Comme nous ne voulons passer que l'année, et que c'est l'argument le plu sà droite, nous allons utiliser `partialRight`.
 
