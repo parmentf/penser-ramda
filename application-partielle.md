@@ -90,13 +90,13 @@ First argument to _arity must be a non-negative integer no greater than ten
 
 ## Curryfication {#curry}
 
-Devoir utiliser `partial` et `partialRight` partout rends la programmation verbeuse et fastidieuse. Mais devoir appeler des fonctions multi-arguments comme des séries de fonctions à un seul argument est aussi lourd.
+Devoir utiliser `partial` et `partialRight` partout rend la programmation verbeuse et fastidieuse. Mais devoir appeler des fonctions multi-arguments comme des séries de fonctions à un seul argument est lourd aussi.
 
 Heureusement, Ramda nous offre la solution: `curry.`
 
-La [curryfication](https://fr.wikipedia.org/wiki/Curryfication) est un autre concept de la programmation fonctionnelle. Techniquement, une fonction curryfiée est toujours une série de fonctions à un seul paramètre, ce qui est pile ce dont je me plaignais. Dans les langages fonctionnels purs, la syntaxe rend cela transparent.
+La [curryfication](https://fr.wikipedia.org/wiki/Curryfication) est un autre concept de la programmation fonctionnelle. Techniquement, une fonction curryfiée est toujours une série de fonctions à un seul paramètre, ce qui est exactement ce dont je me plaignais. Dans les langages fonctionnels purs, la syntaxe rend cela transparent.
 
-Mais parce que Ramda est une bibliothèque JavaScript, et que JavaScript n'a pas de syntaxe appropriée pour appeler une série de fonction à un seul argument, les auteurs ont assoupli un peu la définition classique de la curryfication.
+Mais parce que Ramda est une bibliothèque JavaScript, et que JavaScript n'a pas de syntaxe appropriée pour appeler une série de fonctions à un seul argument, les auteurs ont assoupli un peu la définition classique de la curryfication.
 
 En Ramada, une fonction curryfiée peut être appelée avec une sous-partie de ses arguments, et retourne une nouvelle fonction qui accepte les arguments restant. Si vous appelez une fonction curryfiée avec tous ses arguments, elle ne fera qu'appeler la fonction originale \(NDT: ? _it will just call the function_\).
 
@@ -104,19 +104,17 @@ Vous pouvez considérer une fonction curryfiée comme le meilleur des deux monde
 
 Remarquez que cette souplesse apporte une petite baisse de performance, parce que `curry` doit déterminer comment la fonction a été appelée et ce qu'elle doit faire. En général, je ne `curry` des fonctions que quand j'ai besoin d'utiliser `partial` plus d'une fois.
 
-Tirons avantage de `curry` pour notre fonction `publishedInYear`. Notez que `curry` marche toujours comme vous utilisiez `partial`: il n'y a pas de version `partialRight`. Nous développerons plus tard mais, pour l'instant, nous allons inverser les paramètres de `publishedInYear` pour que l'année soit le premier paramètre.
+Tirons avantage de `curry` pour notre fonction `publishedInYear`. Notez que `curry` marche toujours comme quand vous utilisiez `partial`: il n'y a pas de version `partialRight`. Nous développerons plus tard mais, pour l'instant, nous allons inverser les paramètres de `publishedInYear` pour que l'année soit le premier paramètre.
 
 ```js
 const publishedInYear = curry((year, book) => book.year === year)
- 
+
 const titlesForYear = (books, year) => {
   const selected = filter(publishedInYear(year), books)
- 
+
   return map(book => book.title, selected)
 }
 ```
 
 Nous pouvons de nouveau appeler `publishedInYear` avec `year` pour seul paramètre et recevoir une fonction qui prend un `book` et exécute notre fonction originale. Cependant, nous pouvons encore l'appeler normalement avec `publishedInYear(2012, book)` sans l'ennuyeuse syntaxe `)(`. Le meilleur des deux mondes!
-
-
 
