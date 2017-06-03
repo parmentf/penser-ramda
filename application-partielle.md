@@ -118,3 +118,13 @@ const titlesForYear = (books, year) => {
 
 Nous pouvons de nouveau appeler `publishedInYear` avec `year` pour seul paramètre et recevoir une fonction qui prend un `book` et exécute notre fonction originale. Cependant, nous pouvons encore l'appeler normalement avec `publishedInYear(2012, book)` sans l'ennuyeuse syntaxe `)(`. Le meilleur des deux mondes!
 
+## Ordre des paramètres {#argument-order}
+
+Remarquez que pour que `curry` marche pour nous, nous avons dû inverser l'ordre des paramètres. C'est très courant en programmation fonctionnelle, et c'est pourquoi toutes les fonctions Ramda sont écrites pour que les données soient passées en dernière position.
+
+Les paramètres précédents peuvent être vus comme la configuration du traitement. Donc pour `publishedInYear`, le paramètre `year` est la configuration \(quelle année cherchons-nous?\) et le paramètre `book` est la donnée \(où cherchons-nous l'année?\).
+
+Nous en avons déjà vu des exemples avec les fonctions d'itération de collection. Elles prennent toute la collection en dernier argument car cela rend ce style de programmation plus facile.
+
+
+
