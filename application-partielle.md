@@ -149,3 +149,39 @@ const titlesForYear = (books, year) => {
 ```
 
 Dans la plupart des cas, je préfère utiliser l'ordre des arguments le plus pratique, mais si vous avez besoin d'utiliser une fonction que vous ne contrôlez pas, `flip` est une aide appréciable.
+
+### Espace réservé
+
+L'option la plus générale est l'argument _espace reservé_ (NDT: _placeholder_): `__`.
+
+Et si nous avions une fonction curryfiée à trois arguments, que nous voulions lui fournir les premier et dernier arguments, laissant le dernier pour plus tard? Nous pouvons utiliser l'espace reservé (_placeholder_) à la place de l'argument du milieu:
+
+```js
+const threeArgs = curry((a, b, c) => { /* ... */ })
+
+const middleArgumentLater = threeArgs('value for a', __, 'value for c')
+```
+
+Vous pouvez aussi utiliser l'espace reservé plus d'une fois lors d'un appel de fonction. Par exemple, si nous ne voulions fournir que l'argument du milieu.
+
+```js
+const threeArgs = curry((a, b, c) => { /* ... */ })
+ 
+const middleArgumentOnly = threeArgs(__, 'value for b', __)
+```
+
+Nous pouvons utiliser l'espace réservé au lieu de `flip` si nous voulons:
+
+```js
+const publishedInYear = curry((book, year) => book.year === year)
+ 
+const titlesForYear = (books, year) => {
+  const selected = filter(publishedInYear(__, year), books)
+ 
+  return map(book => book.title, selected)
+}
+```
+
+Je trouve cette version plus lisible, mais si j'avais besoin de beaucoup utiliser la version `flip`pée de `publishedInYear`, je pourrais définir une fonction d'aide utilisant `flip`, et j'utiliserais cette fonction d'aide partout. Nous verrons quelques exemples dans les chapitres suivants.
+
+Remarquez que `__` ne marche que pour les fonction curryfiées, alors que `partial`, `partialRight` et `flip` fonctionnent sur n'importe quelle fonction. Si vous avez besoin d'utiliser `__` sur une fonction normale, vous pouvez toujours l'encapsuler dans un appel à `curry`.
