@@ -23,3 +23,12 @@ Prolog est un des langages classiques déclaratifs. En Prolog, un programme cons
 La programmation fonctionnelle est considérée comme un sous-ensemble de la programmation déclarative. Dans un programme fonctionnel, on définit des fonctions et on dit à l'ordinateur quoi faire en combinant ces fonctions.
 
 Même dans des programmes déclaratifs, il est nécessaire d'effectuer des tâches similaires à celles que nous faisons dans les programmes impératifs. Le contrôle du flux, l'arithmétique, la comparaison et la logique sont encore les blocs de base avec lesquels nous travaillons. Mais nous devons trouver un moyen d'exprimer ces blocs d'une façon déclarative.
+
+## Remplaçants déclaratifs
+
+Comme nous programmons en JavaScript, un langage impératif, il est normal d'utiliser les constructions impératives standard quand on écrit du code JavaScript «normal».
+
+Mais quand nous écrivons des transformations fonctionnelles en utilisant des pipelines et autres choses similaires, les constructions impératives ne sont pas adaptées.
+
+Regardons certains de ces blocs de base que Ramda propose pour nous aider à nous sortir de ce guêpier.
+
