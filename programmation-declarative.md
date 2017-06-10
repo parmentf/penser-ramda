@@ -32,3 +32,53 @@ Mais quand nous écrivons des transformations fonctionnelles en utilisant des pi
 
 Regardons certains de ces blocs de base que Ramda propose pour nous aider à nous sortir de ce guêpier.
 
+## Arithmétique
+
+Dans le deuxième chapitre, nous avons implémenté une série de transformations arithmétiques pour montrer ce qu'est un pipeline:
+
+```js
+const multiply = (a, b) => a * b
+const addOne = x => x + 1
+const square = x => x * x
+ 
+const operate = pipe(
+  multiply,
+  addOne,
+  square
+)
+ 
+operate(3, 4) // => ((3 * 4) + 1)^2 => (12 + 1)^2 => 13^2 => 169
+```
+
+Remarquez comme nous avons dû écrire des fonctions pour tous les blocs de base que nous avons voulu utiliser.
+
+Ramda fournit les fonctions `add`, `substract`, `multiply` et `divide` pour remplacer les opérateurs arithmétiques standard. Ainsi nous pouvons utiliser `multiply` à la place de la fonction que nous avons écrite nous-mêmes, nous pouvons tirer parti de la fonction curryfiée `add` de Ramda pour remplacer notre `addOne`, et nous pouvons écrire `square` en termes de `multiply` de la même manière:
+
+```js
+const square = x => multiply(x, x)
+ 
+const operate = pipe(
+  multiply,
+  add(1),
+  square
+)
+```
+
+`add(1)` est très similaire à l'opérateur d'incrémentation (`++`), mais l'opérateur d'incrémentation modifie la variable incrémentée, c'est donc une mutation. Comme nous l'avons appris dans le premier chapitre, l'immutabilité est un principe fondamental de la programmation fonctionnelle, donc nous ne voulons pas utiliser `++` ni son cousin `--`.
+
+Nous pouvons utiliser `add(1)` et `substract(1)` pour incrémenter et décrémenter, mais parce que ces deux opérations sont si communes, Ramda fournit `inc` et `dec` à la place.
+
+Alors nous pouvons simplifier encore notre pipeline:
+
+```js
+const square = x => multiply(x, x)
+ 
+const operate = pipe(
+  multiply,
+  inc,
+  square
+)
+```
+
+`substract` est le remplaçant de l'opérateur binaire `-`, mais l'opérateur unaire `-` existe aussi pour rendre la valeur opposée. Nous pourrions utiliser `multiply(-1)`, mais Ramda fournit la fonction `negate` pour accomplir cette tâche.
+
