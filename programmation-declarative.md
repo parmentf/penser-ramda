@@ -228,3 +228,13 @@ const water = temperature => cond([
 ```
 
 Je n'ai encore jamais eu besoin de `cond` dans mon code Ramda, mais il y a de nombreuses années j'avais l'habitude d'écrire en Common Lisp, alors  `cond` est comme une vieille amie.
+
+## Conclusion
+
+Nous avons vu de nombreuses fonctions que Ramda nous donne pour transformer notre code impératif en code fonctionnel déclaratif.
+
+## Chapitre suivant
+
+Vous avez peut-être remarqué que les quelques dernières fonctions que nous avons écrites (`forever21`, `drivingAge`, et `water`) prennent toutes un paramètre, construisent une nouvelle fonction, et l'appliquent à ce paramètre.
+
+C'est un motif courant, et une fois de plus Ramda fournit les outils pour le nettoyer (NDT: _clean up_, qu'on pourrait traduire par _simplifier_, mais ce serait anticiper le chapitre suivant). Le prochain chapitre, [Style sans point](style-sans-point.md) (NDT: _Pointfree Style_), expose comment simplifier les fonctions qui correspondent à ce motif.
