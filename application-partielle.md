@@ -185,3 +185,46 @@ const titlesForYear = (books, year) => {
 Je trouve cette version plus lisible, mais si j'avais besoin de beaucoup utiliser la version `flip`pée de `publishedInYear`, je pourrais définir une fonction d'aide utilisant `flip`, et j'utiliserais cette fonction d'aide partout. Nous verrons quelques exemples dans les chapitres suivants.
 
 Remarquez que `__` ne marche que pour les fonction curryfiées, alors que `partial`, `partialRight` et `flip` fonctionnent sur n'importe quelle fonction. Si vous avez besoin d'utiliser `__` sur une fonction normale, vous pouvez toujours l'encapsuler dans un appel à `curry`.
+
+## Faisons un pipeline
+
+Voyons si nous sommes capables de déplacer nos appels à `filter` et `map` dans un pipeline. Voici l'état du code, avec les arguments dans l'ordre que nous préférons:
+
+```js
+const publishedInYear = curry((year, book) => book.year === year)
+ 
+const titlesForYear = (books, year) => {
+  const selected = filter(publishedInYear(year), books)
+ 
+  return map(book => book.title, selected)
+}
+```
+
+Dans le précédent chapitre, nous avons appris à utiliser `pipe` et `compose`, mais il nous manque une information pour pouvoir tirer parti de cet apprentissage.
+
+Voici l'information manquante: presque toutes les fonctions Ramda sont curriféees par défaut. Cela inclut `filter` et `map`. Donc `filter(publishedInYear(year))` est parfaitement légitime et renvoie une nouvelle fonction qui ne fait qu'attendre que nous lui passions les livres, tout comme `ùap(book => book.title)`.
+
+Et maintenant nous pouvons écrire le pipeline:
+
+```js
+const publishedInYear = curry((year, book) => book.year === year)
+ 
+const titlesForYear = (books, year) =>
+  pipe(
+    filter(publishedInYear(year)),
+    map(book => book.title)
+  )(books)
+```
+
+Allons un cran plus loin et inversons les arguments de `titlesForYear` pour nous conformer aux conventions de Ramda sur les données à la fin. Nous pouvons aussi currifier la fonction pour permettre son utilisation dans des pipelines.
+
+```js
+const publishedInYear = curry((year, book) => book.year === year)
+ 
+const titlesForYear = curry((year, books) =>
+  pipe(
+    filter(publishedInYear(year)),
+    map(book => book.title)
+  )(books)
+)
+```
