@@ -1,0 +1,1 @@
+# Programmation déclarative
