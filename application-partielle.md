@@ -202,7 +202,7 @@ const titlesForYear = (books, year) => {
 
 Dans le précédent chapitre, nous avons appris à utiliser `pipe` et `compose`, mais il nous manque une information pour pouvoir tirer parti de cet apprentissage.
 
-Voici l'information manquante: presque toutes les fonctions Ramda sont curriféees par défaut. Cela inclut `filter` et `map`. Donc `filter(publishedInYear(year))` est parfaitement légitime et renvoie une nouvelle fonction qui ne fait qu'attendre que nous lui passions les livres, tout comme `ùap(book => book.title)`.
+Voici l'information manquante: presque toutes les fonctions Ramda sont currufiées par défaut. Cela inclut `filter` et `map`. Donc `filter(publishedInYear(year))` est parfaitement légitime et renvoie une nouvelle fonction qui ne fait qu'attendre que nous lui passions les livres, tout comme `ùap(book => book.title)`.
 
 Et maintenant nous pouvons écrire le pipeline:
 
@@ -216,7 +216,7 @@ const titlesForYear = (books, year) =>
   )(books)
 ```
 
-Allons un cran plus loin et inversons les arguments de `titlesForYear` pour nous conformer aux conventions de Ramda sur les données à la fin. Nous pouvons aussi currifier la fonction pour permettre son utilisation dans des pipelines.
+Allons un cran plus loin et inversons les arguments de `titlesForYear` pour nous conformer aux conventions de Ramda sur les données à la fin. Nous pouvons aussi curryfier la fonction pour permettre son utilisation dans des pipelines.
 
 ```js
 const publishedInYear = curry((year, book) => book.year === year)
@@ -228,3 +228,10 @@ const titlesForYear = curry((year, books) =>
   )(books)
 )
 ```
+
+## Conclusion
+
+Ce chapitre est probablement le plus profond de ce livre. L'application partielle et la curryfication peuvent prendre du temps et réclamer un effort pour les intégrer. Mais une fois que vous les avez comprises, elles vous apportent une très puissante façon de transformer vos données d'un manière fonctionnelle.
+
+Elles vous conduisent à commencer à construire des transformations en créant des pipelines de petits blocs simples.
+
