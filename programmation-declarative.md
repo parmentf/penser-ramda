@@ -82,3 +82,38 @@ const operate = pipe(
 
 `substract` est le remplaçant de l'opérateur binaire `-`, mais l'opérateur unaire `-` existe aussi pour rendre la valeur opposée. Nous pourrions utiliser `multiply(-1)`, mais Ramda fournit la fonction `negate` pour accomplir cette tâche.
 
+## Comparaison
+
+Dans le chapitre 2, nous avons écrit quelques fonctions pour déterminer si une personne avait le droit de vote. La version finale de ce code ressemblait à ça:
+
+```js
+const wasBornInCountry = person => person.birthCountry === OUR_COUNTRY
+const wasNaturalized = person => Boolean(person.naturalizationDate)
+const isOver18 = person => person.age >= 18
+ 
+const isCitizen = either(wasBornInCountry, wasNaturalized)
+ 
+const isEligibleToVote = both(isOver18, isCitizen)
+```
+
+Remarquez que certaines de nos fonctions utilisent les opérateurs de comparaison classiques (`===` et `>=` dans ce cas). Comme vous devriez maintenant le devinez, Ramda donne aussi des remplaçants pour ceux-ci.
+
+Modifions notre code pour utiliser `equals` à la place de `===` et `gte` (NDT: _greater than or equal_) au lieu de `>=`.
+
+```js
+const wasBornInCountry = person => equals(person.birthCountry, OUR_COUNTRY)
+const wasNaturalized = person => Boolean(person.naturalizationDate)
+const isOver18 = person => gte(person.age, 18)
+ 
+const isCitizen = either(wasBornInCountry, wasNaturalized)
+ 
+const isEligibleToVote = both(isOver18, isCitizen)
+```
+
+Ramda fournit aussi `gt` pour `>`, `lt` pour `<` et `lte` pour `<=`.
+
+Notez que ces fonctions prennent leurs arguments dans ce qui semble être l'ordre normal (le premier argument est-il plus grand que le second?). Cela a du sens utilisé isolément, mais peut être déroutant en combinant des fonctions. Ces fonctions semble violer le principe «données à la fin» de Ramda, donc nous allons devoir faire preuve de prudence quand nous les utiliserons dans des pipelines et des situations semblables. C'est là qu'opportunément interviennent `flip` et l'espace réservé (`__`).
+
+En plus d'`equals`, il y a `identical` pour déterminer si deux valeurs référencent le même emplacement mémoire.
+
+Il y a plusieurs usages communs de `===`: vérifier si une chaîne ou un tableau sont vides (`str === ''` ou `arr.length === 0`), et vérifier si une variable est `null` ou `undefined`. Ramda fournit des fonctions adaptées à ces deux cas: `isEmpty` et `isNil`.
