@@ -117,3 +117,27 @@ Notez que ces fonctions prennent leurs arguments dans ce qui semble être l'ordr
 En plus d'`equals`, il y a `identical` pour déterminer si deux valeurs référencent le même emplacement mémoire.
 
 Il y a plusieurs usages communs de `===`: vérifier si une chaîne ou un tableau sont vides (`str === ''` ou `arr.length === 0`), et vérifier si une variable est `null` ou `undefined`. Ramda fournit des fonctions adaptées à ces deux cas: `isEmpty` et `isNil`.
+
+## Logique
+
+Dans le chapitre 2 (et juste au-dessus), nous avons utilisé les fonctions `both` et `either` à la place des opérations `&&` et `||`. Nous avons aussi parlé de `complement` à la place de `!`.
+
+Ces fonctions combinées marchent très bien quand les fonctions que nous combinons agissent toutes deux sur la même valeur. Ci-dessus, `wasBornInCountry`, `wasNaturalized` et `isOver18` s'appliquent toutes à une personne.
+
+Mais quelquefois nous devons appliquer `&&`, `||` et `!` à des valeurs disparates. Pour ces cas, Ramda nous donne les fonctions `and`, `or`, et `not`. Je les conçois de cette manière: `and`, `or`, et `not` s'appliquent à des valeurs alors que `both`, `either` et `complement` s'appliquent à des fonctions.
+
+Un usage habituel de `||` est de fournir des valeurs par défaut. Par exemple, nous pourrions écrire quelque chose comme ça:
+
+```js
+const lineWidth = settings.lineWidth || 80
+```
+
+C'est un idiotisme courant, qui marche la plupart du temps, mais qui repose sur la définition JavaScript de _falsy_. Et si `0` était un réglage valide? Comme `0` est _falsy_, nous finirions avec une ligne de largeur 80.
+
+Nous pourrions utiliser la fonction `isNil` que nous venons juste d'apprendre, mais une fois de plus Ramda a une meilleure option pour nous: `defaultTo`.
+
+```js
+const lineWidth = defaultTo(80, settings.lineWidth)
+```
+
+`defaultTo` vérifie si le second argument `isNil`. S'il ne l'est pas, il renvoie cette valeur, sinon il renvoie la première valeur.
