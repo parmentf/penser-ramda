@@ -235,3 +235,6 @@ Ce chapitre est probablement le plus profond de ce livre. L'application partiell
 
 Elles vous conduisent à commencer à construire des transformations en créant des pipelines de petits blocs simples.
 
+## Chapitre suivant
+
+Pour écrire du code dans un style fonctionnel, nous devons commencer à penser «déclarativement». Pour ce faire, nous allons devoir trouver des moyens d'exprimer les constructions impératives dont nous avons l'habitude d'une manière fonctionnelle. Ces idées sont le sujet de [Programmation déclarative](programmation-declarative).
