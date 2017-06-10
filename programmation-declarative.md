@@ -141,3 +141,90 @@ const lineWidth = defaultTo(80, settings.lineWidth)
 ```
 
 `defaultTo` vérifie si le second argument `isNil`. S'il ne l'est pas, il renvoie cette valeur, sinon il renvoie la première valeur.
+
+## Conditionnelles
+
+Le contrôle de flux est moins indispensable dans les programmes fonctionnels, mais il reste occasionnellement utile. Les fonctions d'itération de collection dont nous avons parlé dans le chapitre 1 traitent la plupart des boucles, mais les conditionnelles sont encore très importantes.
+
+### ifElse
+
+Écrivons une fonction, `forever21`, qui prend un âge et renvoie l'âge de l'année suivante. Mais, comme son nom l'indique, une fois que l'âge atteint 21, il n'évolue plus.
+
+```js
+const forever21 = age => age >= 21 ? 21 : age + 1
+```
+
+Remarquez que notre conditionnelle (`age >= 21`) et la seconde branche (`age + 1`) peuvent toutes deux être écrites comme des fonctions de l'`age`. Nous pouvons réécrire la première branche (`21`) en une fonction constante (`() => 21`). Maintenant nous auvons trois fonctions qui prennent (ou ignorent) l'`age`.
+
+Nous sommes maintenant en position d'utiliser la fonction `ifElse` de Ramda, qui est la fonction équivalente à la structure `if...then...else` ou à son cousin plus court, l'opérateur ternaire (`?:`).
+
+```js
+const forever21 = age => ifElse(gte(__, 21), () => 21, inc)(age)
+```
+
+Comme nous l'avons dit plus haut les fonctions de comparaison ne fonctionnent pas comme aimerions quand nous les combinons, alors nous sommes forcés d'introduire l'espace réservé (`__`). Nous pouvons aussi passer à `lte`:
+
+```js
+const forever21 = age => ifElse(lte(21), () => 21, inc)(age)
+```
+
+Dans ce cas, nous devons lire ceci comme _21 est plus petit que ou égal à age_. Je vais continuer avec la version utilisant l'espace reservé parce que je la trouve plus lisible et moins déroutante.
+
+### Constantes
+
+Les fonctions constantes sont très utiles dans des situations telles que celle-là. Comme vous pouvez l'imaginer, Ramda nous fournit un raccourci. Dans ce cas, le raccourci se nomme `always`.
+
+```js
+const forever21 = age => ifElse(gte(__, 21), always(21), inc)(age)
+```
+
+Ramda donne aussi `T` et `F` comme des raccourcis pour `always(true)` et `always(false)`.
+
+### Identity
+
+Essayons une autre fonction, `alwaysDrivingAge`. Cette fonction prend un âge, et le renvoie s'il est `gte` 16. Mais s'il est plus petit que 16, elle renvoie 16. Ça autorise n'importe qui à prétendre qu'il a l'âge de conduire, même si ce n'est pas le cas.
+
+```js
+const alwaysDrivingAge = age => ifElse(lt(__, 16), always(16), a => a)(age)
+```
+
+La seconde branche de la conditionnelle (`a => a`) est un autre motif habituel en programmation fonctionnelle. Il est connu comme la fonction identité. C'est-à-dire une fonction qui renvoie l'argument qu'elle reçoit, quel qu'il soit.
+
+Comme vous vous en doutez, Ramda nous fournit une fonction `identity`.
+
+```js
+const alwaysDrivingAge = age => ifElse(lt(__, 16), always(16), identity)(age)
+```
+
+`identity` peut prendre plus d'un argument, mais elle retourne toujours le premier argument. Si nous voulons renvoyer quelque chose d'autre que le premier argument, il y a la fonction plus générale `nthArg` (NDT: _nième arg_). Elle est moins utilisée que `identity`.
+
+### when et unless
+
+Avoir une instruction `ifElse` avec `identity` dans une des branches de la conditionnelle est courant, aussi Ramda fournit encore des raccourcis.
+
+Si, comme dans notre cas, la seconde branche est `identity`, nous pouvons utiliser `when` au lieu de `ifElse`:
+
+```js
+const alwaysDrivingAge = age => when(lt(__, 16), always(16))(age)
+```
+Si la première branche de la conditionnelle est `identity`, nous pouvons utiliser `unless`. Si nous inversons notre condition pour utiliser `gte(__, 16)`, nous pouvons utiliser `unless`.
+
+```js
+const alwaysDrivingAge = age => unless(gte(__, 16), always(16))(age)
+```
+
+### cond
+
+Ramda donne aussi la fonction `cond` qui peut remplacer une instruction `switch` ou une chaîne d'instructions `if...then...else`.
+
+Je vais répéter l'exemple de la documentation de Ramda pour montrer comment ça s'utilise:
+
+```js
+const water = temperature => cond([
+  [equals(0),   always('water freezes at 0°C')],
+  [equals(100), always('water boils at 100°C')],
+  [T,           temp => `nothing special happens at ${temp}°C`]
+])(temperature)
+```
+
+Je n'ai encore jamais eu besoin de `cond` dans mon code Ramda, mais il y a de nombreuses années j'avais l'habitude d'écrire en Common Lisp, alors  `cond` est comme une vieille amie.
