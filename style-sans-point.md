@@ -70,3 +70,34 @@ const water = cond([
   [T,           temp => `nothing special happens at ${temp}°C`]
 ])
 ```
+
+## Fonctions multi-arguments
+
+Et avec les fonctions qui prennent plus d'un argument? Voyons à nouveau l'exemple `titlesForYear` du chapitre [Application partielle](application-partielle.md).
+
+```js
+const titlesForYear = curry((year, books) =>
+  pipe(
+    filter(publishedInYear(year)),
+    map(book => book.title)
+  )(books)
+)
+```
+
+Remarquez que seul `books` apparaît deux fois: une fois comme le dernier paramètre de la liste d'arguments (données à la fin!), et une fois à la toute fin de la fonction, au moment où nous lui appliquons notre pipeline. C'est semblable au motif que nous avons vu ci-dessus avec `age`, donc appliquons lui la même transformation:
+
+```js
+const titlesForYear = year =>
+  pipe(
+    filter(publishedInYear(year)),
+    map(book => book.title)
+  )
+```
+
+Ça marche! Nous avons maintenant une version sans point de `titlesForYear`.
+
+Honnêtement, je n'aurais probablement pas envie du style sans point dans ce cas, car JavaScript n'est pas pratique pour appeler une série de fonctions à un seul argument, comme nous en avons déjà parlé dans les chapitres précédents.
+
+Si nous voulons utiliser `titlesForYear` dans un pipeline, tout va bien. Nous pouvons appeler `titlesForYear(2012)` très facilement. Mais si nous voulons l'utiliser seule, nous devons revenir au motif `)(` que nous avons vu dans le chapitre précédent: `titlesForYear(2012)(books)`. Pour moi, cela ne vaut pas la peine.
+
+Mais pratiquement à chaque fois que j'ai une fonction à un seul argument qui suit le motif ci-dessus (ou qui peut être refactoré pour le suivre), je la rendrai _sans point_.
