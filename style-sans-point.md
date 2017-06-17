@@ -152,3 +152,15 @@ Quel est l'avantage du style _sans point_ ? On pourrait arguer que ce n'est qu'u
 - cela rend les algorithmes plus clairs. En se concentrant seulement sur les fonctions à combiner, nous avons une meilleure compréhension de ce qui se passe, sans que les arguments nous bouchent la vue,
 - cela nous force à penser davantage à la transformation à effectuer qu'aux données à transformer,
 - cela nous aide à penser nos fonctions comme des blocs génériques, qui peuvent fonctionner avec différentes sortes de données, plutôt que d'y penser comme à des opérations sur un type particulier de donnée. En donnant un nom à une donnée, nous ancrons nos pensées à l'endroit où nous pouvons utiliser nos fonctions. Laisser l'argument _donnée_ à la porte nous permet d'être plus créatif.
+
+## Conclusion
+
+Le style _sans point_, aussi connu sous le nom de [programmation tacite](https://en.wikipedia.org/wiki/Tacit_programming), peut rendre notre code plus clair et plus compréhensible. En _refactorant_ notre code pour combiner toutes nos transformations en une seule fonction, nous obtenons de plus petits blocs de base, réutilisables à plus d'endroits (NDT: style pas très satisfaisant).
+
+## Chapitre suivant
+
+Dans nos exemples, nous n'avons pas été capables de _refactorer_ toutes les fonctions dans le style _sans point_. Nous avons encore du code écrit dans un style impératif. La plupart de ce code traite des objets et des tableaux.
+
+Nous devons trouver une manière déclarative d'interagir avec les objets et les tableaux. Et l'immutabilité? Comment manipuler des objets et des tableaux de manière immutable?
+
+Le chapitre suivant, [Objets et immutabilité](objets-et-immutabilite.md), montre comment travailler avec des objets de manière fonctionnelle et immutable. Le chapitre d'après, [Tableaux et immutabilité](tableaux-et-immutabilite.md) fera de même pour les tableaux.
