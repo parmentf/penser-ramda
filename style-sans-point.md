@@ -4,7 +4,7 @@ Dans le [chapitre précédent](programmation-declarative.md), nous avons parlé 
 
 Vous avez peut-être remarqué que plusieurs des fonctions que nous avons écrites (`forever21`, `drivingAge` et `water`, par exemple) prennent toute un paramètre, construisent une nouvelle fonction puis l'appliquent à ce paramètre.
 
-C'est un motif très commun en programmation fonctionnnelle, et une fois de plus Ramda nous fournit les outils pour rendre cela plus propre.
+C'est un motif très commun en programmation fonctionnelle, et une fois de plus Ramda nous fournit les outils pour rendre cela plus propre.
 
 ## Style sans point
 
@@ -13,7 +13,7 @@ Dans le chapitre [Application partielle](application-partielle.md), nous avons p
 - mettre les données à la fin,
 - tout curryfier.
 
-Ces deux principent mènent à un style que les programmeur fonctionnels appellent «sans point» (NDT: _"pointfree"_). Quand j'y pense, je me dis _«Des données? Quelles données? Il n'y a pas de données ici.»_
+Ces deux principes mènent à un style que les programmeur fonctionnels appellent «sans point» (NDT: _"pointfree"_). Quand j'y pense, je me dis _«Des données? Quelles données? Il n'y a pas de données ici.»_
 
 Il y a un très bon billet de blog en anglais, [Why Ramda?](http://fr.umio.us/why-ramda/), qui illustre vraiment bien le style sans point. Les titre de sections tels que _Where's the Data?_, _All Right, Already! May I See Some Data?_ y sont révélateurs.
 
@@ -35,7 +35,7 @@ Voyons à quoi cela ressemblerait:
 const forever21 = ifElse(gte(__, 21), always(21), inc)
 ```
 
-Et _pouf !_ Nous venons de faire disparaître `age`. Style sans point. Remarquez qu'il n'ya pas de différence de comportement entre ces deux versions. Nous retournons toujours une fonction qui prend un âge, mais maintenant nous n'explicitons plus le paramètre `age`.
+Et _pouf !_ Nous venons de faire disparaître `age`. Style sans point. Remarquez qu'il n’y a pas de différence de comportement entre ces deux versions. Nous retournons toujours une fonction qui prend un âge, mais maintenant nous n'explicitons plus le paramètre `age`.
 
 Nous pouvons faire la même chose avec `alwaysDrivingAge` et `water`.
 
