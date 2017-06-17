@@ -139,3 +139,16 @@ Maintenant que nous avons fait ces _refactorings_, nous voyons que les deux fonc
 const isCitizen = either(wasBornInCountry, wasNaturalized)
 const isEligibleToVote = both(isOver18, isCitizen)
 ```
+
+## Pourquoi?
+
+S'habituer au style _sans point_ prend du temps. Il peut être difficile de s'adapter aux arguments manquant partout. Il est important aussi d'être familier des fonctions de Ramda pour savoir combien d'arguments elles réclament.
+
+Mais une fois habitué, avoir un tas de petites fonctions _sans point_ combinées de manière intéressante devient très puissant.
+
+Quel est l'avantage du style _sans point_ ? On pourrait arguer que ce n'est qu'un exercice académique conçu pour gagner une médaille du mérite pour la programmation fonctionnelle. Pourtant, je pense qu'il y a quelques avantages, même en dépit du travail que cela demande pour s'y habituer:
+
+- cela rend les programmes plus simples et plus concis. Ce n'est pas toujours une bonne chose, mais ça peut l'être,
+- cela rend les algorithmes plus clairs. En se concentrant seulement sur les fonctions à combiner, nous avons une meilleure compréhension de ce qui se passe, sans que les arguments nous bouchent la vue,
+- cela nous force à penser davantage à la transformation à effectuer qu'aux données à transformer,
+- cela nous aide à penser nos fonctions comme des blocs génériques, qui peuvent fonctionner avec différentes sortes de données, plutôt que d'y penser comme à des opérations sur un type particulier de donnée. En donnant un nom à une donnée, nous ancrons nos pensées à l'endroit où nous pouvons utiliser nos fonctions. Laisser l'argument _donnée_ à la porte nous permet d'être plus créatif.
