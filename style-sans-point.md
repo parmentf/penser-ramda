@@ -101,3 +101,41 @@ Honnêtement, je n'aurais probablement pas envie du style sans point dans ce cas
 Si nous voulons utiliser `titlesForYear` dans un pipeline, tout va bien. Nous pouvons appeler `titlesForYear(2012)` très facilement. Mais si nous voulons l'utiliser seule, nous devons revenir au motif `)(` que nous avons vu dans le chapitre précédent: `titlesForYear(2012)(books)`. Pour moi, cela ne vaut pas la peine.
 
 Mais pratiquement à chaque fois que j'ai une fonction à un seul argument qui suit le motif ci-dessus (ou qui peut être refactoré pour le suivre), je la rendrai _sans point_.
+
+
+## Refactorer sans point
+
+Il y aura des moments où nos fonctions ne suivrons pas ce motif. Nous pourrions traiter les données de nombreuses fois dans la même fonction.
+
+C'était le cas dans plusieurs exemples du chapitre [Combinaison de fonctions](combinaison-de-fonctions.md). Dans ces exemples, nous avons refactoré notre code pour combiner les fonctions en utilisant des choses comme `both`, `either`, `pipe` et `compose`. Quand ce serait fait, rendre nos fonctions _sans point_ (NDT: j'ai de plus en plus de mal avec cette terminologie: je ne vois pas de point) serait une transformation relativement facile.
+
+Revoyons l'exemple `isEligibleToVote`. Voilà d'où nous sommes partis:
+
+```js
+const wasBornInCountry = person => person.birthCountry === OUR_COUNTRY
+const wasNaturalized = person => Boolean(person.naturalizationDate)
+const isOver18 = person => person.age >= 18
+ 
+const isCitizen = person => wasBornInCountry(person) || wasNaturalized(person)
+ 
+const isEligibleToVote = person => isOver18(person) && isCitizen(person)
+```
+
+Commençons par `isCitizen`. Elle prend une `person` et lui applique deux fonctions différentes, en combinant les résultats avec `||`. Comme nous l'avons appris dans le chapitre [Combinaison de fonctions](combinaison-de-fonctions.md), nous pouvons utiliser `either` à la place pour combiner les deux fonctions en une nouvelle fonction, puis appliquer la fonction combinée à `person`.
+
+```js
+const isCitizen = person => either(wasBornInCountry, wasNaturalized)(person)
+```
+
+On peut faire de même avec `isEligibleToVote` en utilisant `both`:
+
+```js
+const isEligibleToVote = person => both(isOver18, isCitizen)(person)
+```
+
+Maintenant que nous avons fait ces _refactorings_, nous voyons que les deux fonctions suivent le motif dont nous avons parlé plus haut: `person` est mentionné deux fois, une fois comme argument de la fonction, et une fois à la fin quand nous lui appliquons notre fonction combinée. Maintenant nous pouvons refactorer pour avoir le style _sans point_:
+
+```js
+const isCitizen = either(wasBornInCountry, wasNaturalized)
+const isEligibleToVote = both(isOver18, isCitizen)
+```
