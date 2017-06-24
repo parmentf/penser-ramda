@@ -6,4 +6,5 @@
 * [Application partielle](application-partielle.md)
 * [Programmation déclarative](programmation-declarative.md)
 * [Style sans point](style-sans-point.md)
+* [Objets et immutabilité](objets-et-immutabilite.md)
 
