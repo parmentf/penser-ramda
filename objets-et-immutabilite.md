@@ -141,3 +141,32 @@ Et pour supprimer des propriétés? En programmation impérative, nous pourrions
 Il y a aussi `omit`, qui peut retrancher plusieurs propriétés à la fois. `const updatedPerson = omit(['age', 'birthCountry'], person)`.
 
 Remarquez que `pick` et `omit` sont très similaires et complémentaires l'un de l'autre. Ils sont pratiques pour le _white-listing_ (NDT: de _white list_, liste blanche, garder uniquement cet ensemble de propriétés en utilisant `pick`), ou le _black-listing_ (NDT: de _black list_, liste noire, enlever cet ensemble de propriétés en utilisant `omit`).
+
+## Transformer des propriétés
+
+Nous en savons assez pour travailler avec des objets d'une manière déclarative et immutable. Écrivons une fonction, `celebrateBirthday`, qui met à jour l'âge d'une personne à son anniversaire.
+
+```js
+const nextAge = compose(inc, prop('age'))
+const celebrateBirthday = person => assoc('age', nextAge(person), person)
+```
+
+C'est un motif assez habituel. Plutôt que de mettre à jour une propriété avec une nouvelle valeur connue, nous voulons vraiment transformer la valeur en appliquant une fonction à l'ancienne valeur, comme nous l'avons fait ici.
+
+Je ne connais pas de bonne manière d'écrire ceci avec moins de répétition, tout en restant dans le style _tacite_, avec les seulement les outils que nous connaissons.
+
+Ramda vient à notre secours avec sa fonction `evolve`. 
+
+`evolve` prend un objet qui spécifie une fonction de transformation pour chaque propriété à transformer. Réécrivons `celebrateBirthday` en utilisant `evolve`:
+
+```js
+const celebrateBirthday = evolve({ age: inc })
+```
+
+Ce code demande de faire évoluer (NDT: _evolve_) l'objet cible (non montré ici à cause du style _tacite_) en faisant un nouvel objet avec les mêmes propriétés et valeurs, mais dont l'`age` est obtenu en appliquant `inc` à la valeur originale d'`age`.
+
+`evolve` peut transformer plusieurs propriétés d'un coup et à plusieurs niveaux d'imbrication. L'objet de transformation peut avoir la même forme que l'objet à transformer, et `evolve` traversera alors récursivement les deux structures, appliquant les fonctions de transformation au passage.
+
+Notez qu'`evolve` n'ajoutera pas de nouvelle propriété; si vous spécifiez une transformation pour une propriété qui n'est pas présente dans l'objet cible, `evolve` l'ignorera tout simplement.
+
+Je me suis aperçu qu'`evolve` est rapidement devenu un cheval de bataille (NDT: _workhorse_) dans mes applications.
