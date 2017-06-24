@@ -50,7 +50,7 @@ const wasNaturalized = person => Boolean(prop('naturalizationDate', person))
 const isOver18 = person => gte(prop('age', person), 18)
 ```
 
-Ensuite, grâce à la nature _curryfiéeè d'`equals` et `gte`, nous pouvons créer de nouvelles fonctions à appliquer au résultat de l'appel à `prop`.
+Ensuite, grâce à la nature _curryfiée_ d'`equals` et `gte`, nous pouvons créer de nouvelles fonctions à appliquer au résultat de l'appel à `prop`.
 
 ```js
 const wasBornInCountry = person => equals(OUR_COUNTRY)(prop('birthCountry', person))
@@ -96,11 +96,11 @@ Par exemple, si on veut seulement les nom et âge d'une `person`, on peut utilis
 
 ### has
 
-Si on veut seulement savoir si un objet possède une propriété sans lire sa vleur, on peut utiliser `has` pour vérifier ses propriétés, et `hasIn` pour remonter la chaîne des prototypes: `has('name', person)`.
+Si on veut seulement savoir si un objet possède une propriété sans lire sa valeur, on peut utiliser `has` pour vérifier ses propriétés, et `hasIn` pour remonter la chaîne des prototypes: `has('name', person)`.
 
 ### path
 
-Là où `propr` lit une propriété d'un objet, `path` plonge à l'intérieur d'objets imbriqués. Par exemple, pour accéder au code postal d'une structure plus profonde, on peut faire `path(['address', 'zipCode'], person)`.
+Là où `prop` lit une propriété d'un objet, `path` plonge à l'intérieur d'objets imbriqués. Par exemple, pour accéder au code postal d'une structure plus profonde, on peut faire `path(['address', 'zipCode'], person)`.
 
 Notez que `path` est plus tolérant que `prop`. `path` renverra `undefined` dès qu'un élément le long du chemin (l'argument original inclus) est `null` ou `undefined`, alors que `prop` lèvera une erreur (NDT: _error_ en anglais, mais ce pourrait être _exception_?).
 
@@ -116,7 +116,7 @@ Par exemple, on peut fournir une valeur par défaut quand nous ne connaissons pa
 
 ## Ajouter, mettre à jour et supprimer des propriétés
 
-Nous avons maintenant de nombreux outils pour lire les objets déclarativement, mais qu'en est-il pour faire des changements?
+Nous avons maintenant de nombreux outils pour lire les objets de manière déclarative, mais qu'en est-il pour faire des changements?
 
 Comme l'immutabilité est importante, nous ne voulons pas changer les objets directement. Au lieu de cela, nous voulons retourner de nouveaux objets qui ont été modifiés de la manière que nous voulons.
 
@@ -173,7 +173,7 @@ Je me suis aperçu qu'`evolve` est rapidement devenu un cheval de bataille (NDT:
 
 ## Fusionner des objets
 
-Quelquefois, vous voudre fusionner deux objets. Un cas courant est d'avoir une fonction qui prend des options nommées et que vous voulez combiner ces options avec un ensemble d'options par défaut. Ramda fournit `merge` pour cet usage.
+Quelquefois, vous voudrez fusionner deux objets. Un cas courant est d'avoir une fonction qui prend des options nommées et que vous voulez combiner ces options avec un ensemble d'options par défaut. Ramda fournit `merge` pour cet usage.
 
 ```js
 function f(a, b, options = {}) {
@@ -196,7 +196,7 @@ Remarquez que `merge` ne prend que deux arguments. Si vous voulez fusionnez plus
 
 ## Conclusion
 
-Voilà qui nous a donné une belle boîte à outils pour travailler sur les objets de manière déclarative et immutable. Nous pouvons maintnant lire, ajouter, mettre à jour, supprimer et transformer des propriétés dans des objets sans changer les objets originaux. Et nous pouvons même faire ça en combinant des fonctions.
+Voilà qui nous a donné une belle boîte à outils pour travailler sur les objets de manière déclarative et immutable. Nous pouvons maintenant lire, ajouter, mettre à jour, supprimer et transformer des propriétés dans des objets sans changer les objets originaux. Et nous pouvons même faire ça en combinant des fonctions.
 
 ## Chapitre suivant
 
