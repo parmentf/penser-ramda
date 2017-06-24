@@ -193,3 +193,11 @@ Pour cette situation, je définit une fonction utilitaire nommée `reverseMerge`
 `merge` effectue une fusion superficielle. Si les objets fusionnés possèdent tous deux une propriété dont la valeur est un sous-objet, ces sous-objets ne seront pas fusionnés. Ramda n'a pas de fonctionnalité _fusion profonde_, où les sous-objets sont fusionnés récursivement.
 
 Remarquez que `merge` ne prend que deux arguments. Si vous voulez fusionnez plusieurs objets en un seul, il existe `mergeAll` qui prend un tableau des objets à fusionner.
+
+## Conclusion
+
+Voilà qui nous a donné une belle boîte à outils pour travailler sur les objets de manière déclarative et immutable. Nous pouvons maintnant lire, ajouter, mettre à jour, supprimer et transformer des propriétés dans des objets sans changer les objets originaux. Et nous pouvons même faire ça en combinant des fonctions.
+
+## Chapitre suivant
+
+Maintenant que nous pouvons travailler sur des objets d'une façon immutable, pouvons-nous faire de même sur les tableaux? [Tableaux et immutabilité](tableaux-et-immutabilite.md) nous montre comment.
