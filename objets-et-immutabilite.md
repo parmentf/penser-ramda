@@ -113,3 +113,31 @@ Par exemple, on peut fournir une valeur par défaut quand nous ne connaissons pa
 ### keys / values
 
 `keys` renvoie un tableau contenant les noms de toutes les propriétés propres à un objet. `values` renvoie les valeurs de ces propriétés. Ces fonctions sont utiles combinées à des fonctions d'itération de collection comme celles que nous avons vues au premier chapitre.
+
+## Ajouter, mettre à jour et supprimer des propriétés
+
+Nous avons maintenant de nombreux outils pour lire les objets déclarativement, mais qu'en est-il pour faire des changements?
+
+Comme l'immutabilité est importante, nous ne voulons pas changer les objets directement. Au lieu de cela, nous voulons retourner de nouveaux objets qui ont été modifiés de la manière que nous voulons.
+
+Une fois de plus, Ramda est d'une grande aide.
+
+### assoc / assocPath
+
+En programmation impérative, nous pouvons initialiser (NDT: _set_) ou modifier le nom d'une personne avec l'opérateur d'affectation: `person.name = 'New name'`.
+
+Dans notre monde fonctionnel et immutable, il nous faut utiliser `assoc` à sa place: `const updatedPerson = assoc('name', 'New name', person)`.
+
+`assoc` renvoie un nouvel objet avec la valeur de propriété ajoutée ou modifiée, laissant l'objet original inchangé. 
+
+Il y a aussi `assocPath` pour mettre à jour une propriété imbriquée: `const updatedPerson = assocPath(['address', 'zipcode'], '97504', person)`.
+
+### dissoc / dissocPath / omit
+
+Et pour supprimer des propriétés? En programmation impérative, nous pourrions vouloir dire `delete person.age`. En Ramda, nous utiliserions `dissoc`: `const updatedPerson = dissoc('age', person)`.
+
+`dissocPath` est semblable, mais va plus loin à l'intérieur de la structure de l'objet: `dissocPath(['address', 'zipCode'], person)`.
+
+Il y a aussi `omit`, qui peut retrancher plusieurs propriétés à la fois. `const updatedPerson = omit(['age', 'birthCountry'], person)`.
+
+Remarquez que `pick` et `omit` sont très similaires et complémentaires l'un de l'autre. Ils sont pratiques pour le _white-listing_ (NDT: de _white list_, liste blanche, garder uniquement cet ensemble de propriétés en utilisant `pick`), ou le _black-listing_ (NDT: de _black list_, liste noire, enlever cet ensemble de propriétés en utilisant `omit`).
