@@ -170,3 +170,26 @@ Ce code demande de faire évoluer (NDT: _evolve_) l'objet cible (non montré ici
 Notez qu'`evolve` n'ajoutera pas de nouvelle propriété; si vous spécifiez une transformation pour une propriété qui n'est pas présente dans l'objet cible, `evolve` l'ignorera tout simplement.
 
 Je me suis aperçu qu'`evolve` est rapidement devenu un cheval de bataille (NDT: _workhorse_) dans mes applications.
+
+## Fusionner des objets
+
+Quelquefois, vous voudre fusionner deux objets. Un cas courant est d'avoir une fonction qui prend des options nommées et que vous voulez combiner ces options avec un ensemble d'options par défaut. Ramda fournit `merge` pour cet usage.
+
+```js
+function f(a, b, options = {}) {
+  const defaultOptions = { value: 42, local: true }
+  const finalOptions = merge(defaultOptions, options)
+}
+```
+
+`merge` renvoie un nouvel objet contenant toutes les propriétés et valeurs des deux objets. Si les deux objets ont un propriété commune, c'est la valeur du deuxième argument qui prime.
+
+Que le deuxième argument l'emporte a du sens quand on utilise `merge` tout seul, mais beaucoup moins dans un _pipeline_. Souvent, dans ce cas, vous ferez une série de transformations sur un objet, et une de ces transformations est de fusionner de nouvelles valeurs de propriétés. Dans ce cas, vous voudrez que ce soit le premier argument qui l'emporte.
+
+Utiliser simplement `merge(newValues)` dans le pipeline ne produira pas l'effet escompté.
+
+Pour cette situation, je définit une fonction utilitaire nommée `reverseMerge`. Elle peut s'écrire `const reverseMerge = flip(merge)`. Rappelez-vous que `flip` inverse les deux premiers arguments de la fonction à laquelle elle s'applique.
+
+`merge` effectue une fusion superficielle. Si les objets fusionnés possèdent tous deux une propriété dont la valeur est un sous-objet, ces sous-objets ne seront pas fusionnés. Ramda n'a pas de fonctionnalité _fusion profonde_, où les sous-objets sont fusionnés récursivement.
+
+Remarquez que `merge` ne prend que deux arguments. Si vous voulez fusionnez plusieurs objets en un seul, il existe `mergeAll` qui prend un tableau des objets à fusionner.
