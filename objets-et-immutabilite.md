@@ -87,3 +87,29 @@ const isOver18 = compose(gte(__, 18), prop('age'))
 Il n'était pas évident quand nous avons commencé que nos méthodes faisaient deux choses différentes. Elles accédaient toutes les deux à une propriété d'un objet et appliquaient une opération sur la valeur de cette propriété. Ce _refactoring_ en style _tacite_ (NDT: ou _sans point_) a rendu cela très explicite.
 
 Voyons d'autres outils que Ramda propose pour travailler sur les objets.
+
+### pick
+
+Là où  `prop` lit une seule propriété d'un objet et renvoie sa valeur, `pick` lit plusieurs propriétés d'un objet et renvoie un nouvel objet contenant seulement ces propriétés.
+
+Par exemple, si on veut seulement les nom et âge d'une `person`, on peut utiliser `pick(['name', 'age'], person)`.
+
+### has
+
+Si on veut seulement savoir si un objet possède une propriété sans lire sa vleur, on peut utiliser `has` pour vérifier ses propriétés, et `hasIn` pour remonter la chaîne des prototypes: `has('name', person)`.
+
+### path
+
+Là où `propr` lit une propriété d'un objet, `path` plonge à l'intérieur d'objets imbriqués. Par exemple, pour accéder au code postal d'une structure plus profonde, on peut faire `path(['address', 'zipCode'], person)`.
+
+Notez que `path` est plus tolérant que `prop`. `path` renverra `undefined` dès qu'un élément le long du chemin (l'argument original inclus) est `null` ou `undefined`, alors que `prop` lèvera une erreur (NDT: _error_ en anglais, mais ce pourrait être _exception_?).
+
+### propOr / pathOr
+
+`propOr` et `pathOr` ressemblent à `prop` et `path` combinées à `defaultTo`. Elles permettent de fournir une valeur par défaut à utiliser quand la propriété ou le chemin (NDT: _path_) ne sont pas trouvées dans l'objet ciblé.
+
+Par exemple, on peut fournir une valeur par défaut quand nous ne connaissons par le nom d'une personne: `propOr('<Unnamed>', 'name', person)`. Remarquez que contrairement à `prop`, `propOr` ne lèvera pas d'erreur si `person` est `null` ou `undefined`; à la place, elle retournera la valeur par défaut.
+
+### keys / values
+
+`keys` renvoie un tableau contenant les noms de toutes les propriétés propres à un objet. `values` renvoie les valeurs de ces propriétés. Ces fonctions sont utiles combinées à des fonctions d'itération de collection comme celles que nous avons vues au premier chapitre.
