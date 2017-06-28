@@ -1,6 +1,6 @@
 # Tableaux et immutabilité
 
-Dans le [chapitre précédent](objets-et-immutabilite.md), nous avons vu comment travailler avec les objets Javascript d'une façon fonctionnelle et immutable.
+Dans le [chapitre précédent](objets-et-immutabilite.md), nous avons vu comment travailler avec les objets JavaScript d'une façon fonctionnelle et immutable.
 
 Dans ce chapitre, nous ferons de même pour les tableaux.
 
@@ -107,7 +107,7 @@ Remarquez que les deux premiers arguments d'`adjust` sont inversés par rapport 
 
 # Conclusion
 
-Nous avons maintenant les outils pour travailler les tableaux et les objets d'une façon déclarative et immutable. Cela nous premet de construire des programmes à partir de blocs de base petits et fonctionnels, en combinant des fonctions pour faire ce dont on a besoin, le tout sans _muter_ nos structures de données.
+Nous avons maintenant les outils pour travailler les tableaux et les objets d'une façon déclarative et immutable. Cela nous permet de construire des programmes à partir de blocs de base petits et fonctionnels, en combinant des fonctions pour faire ce dont on a besoin, le tout sans _muter_ nos structures de données.
 
 # Chapitre suivant
 
