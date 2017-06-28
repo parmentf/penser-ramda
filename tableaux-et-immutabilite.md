@@ -39,3 +39,48 @@ take(3, numbers) // => [10, 20, 30]
 takeLast(3, numbers) // => [40, 50, 60]
 ```
 
+## Ajouter, mettre à jour et supprimer des éléments d'un tableau
+
+Pour les objets, nous avons appris `assoc`, `dissoc` et `omit` pour ajouter, mettre à jour et supprimer des propriétés (NDT: `dissoc` pour mettre à jour?!?).
+
+Parce que les tableaux sont une structure de données ordonnée, il y a plusieurs méthodes qui font le même travail qu'`assoc`. Les plus générales sont `insert` et `update`, mais Ramda fournit aussi `append` et `prepend` pour le cas courant d'ajout d'éléments au début ou à la fin du tableau. `insert`, `append` et `prepend` ajoutent de nouveaux éléments au tableau; `update` «remplace» un élément avec une nouvelle valeur.
+
+Comme on peut l'attendre d'une bibliothèque fonctionnelle, toutes ces fonctions renvoient un nouveau tableau avec les changements voulus; le tableau original n'est jamais modifié.
+
+```js
+const numbers = [10, 20, 30, 40, 50, 60]
+ 
+insert(3, 35, numbers) // => [10, 20, 30, 35, 40, 50, 60]
+ 
+append(70, numbers) // => [10, 20, 30, 40, 50, 60, 70]
+ 
+prepend(0, numbers) // => [0, 10, 20, 30, 40, 50, 60]
+ 
+update(1, 15, numbers) // => [10, 15, 30, 40, 50, 60]
+```
+
+Pour combiner deux objets en un seul, nous avons appris `merge`. Ramda offre `concat` pour faire de même avec des tableaux.
+
+```js
+const numbers = [10, 20, 30, 40, 50, 60]
+ 
+concat(numbers, [70, 80, 90]) // => [10, 20, 30, 40, 50, 60, 70, 80, 90]
+```
+
+Remarquez que c'est le deuxième tableau qui est ajouté à la fin du premier. Ça a l'air normal quand on l'utilise seule, mais, comme avec `merge`, ça pourrait ne pas se comporter comme vous l'attendez dans un pipeline. Je trouve utile de définir une fonction d'aide, `concatAfter`: `const concatAfter = flip(concat)` à utiliser dans les pipelines.
+
+Ramda fournit aussi plusieurs options pour supprimer des éléments. `remove` supprime des éléments par indice, alors que `without` les enlève par valeur. Il y a aussi `drop` et `dropLast` pour le cas habituel de suppression des éléments du début ou de la fin du tableau.
+
+```js
+const numbers = [10, 20, 30, 40, 50, 60]
+ 
+remove(2, 3, numbers) // => [10, 20, 60]
+ 
+without([30, 40, 50], numbers) // => [10, 20, 60]
+ 
+drop(3, numbers) // => [40, 50, 60]
+ 
+dropLast(3, numbers) // => [10, 20, 30]
+```
+
+Prenez note que `remove` prend un indice et un compte (le nombre d'éléments à supprimer) alors que `slice` prend deux indices. Cette incohérence peut être déroutante si vous n'en êtes pas conscient.
