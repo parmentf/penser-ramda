@@ -104,3 +104,11 @@ adjust(multiply(10), 2, numbers)
 ```
 
 Remarquez que les deux premiers arguments d'`adjust` sont inversés par rapport à `update`. Ça peut être source de confusion, mais prend tout son sens quand vous considérez l'application partielle. Vous pourriez vouloir fournir une fonction d'ajustement avec `adjust(multiply(10))` et décider seulement plus tard à quel indice et à quel tableau appliquer cet ajustement.
+
+# Conclusion
+
+Nous avons maintenant les outils pour travailler les tableaux et les objets d'une façon déclarative et immutable. Cela nous premet de construire des programmes à partir de blocs de base petits et fonctionnels, en combinant des fonctions pour faire ce dont on a besoin, le tout sans _muter_ nos structures de données.
+
+# Chapitre suivant
+
+Nous avons appris les manières de lire, mettre à jour et transformer des propriétés d'objets et des éléments de tableaux. Ramda fournit un outil plus général pour effectuer ces opérations, la lentille (NDT: _the lens_). [Lentilles](lentilles.md) nous montre comment elles fonctionnent.
