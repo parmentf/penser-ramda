@@ -84,3 +84,23 @@ dropLast(3, numbers) // => [10, 20, 30]
 ```
 
 Prenez note que `remove` prend un indice et un compte (le nombre d'éléments à supprimer) alors que `slice` prend deux indices. Cette incohérence peut être déroutante si vous n'en êtes pas conscient.
+
+## Transformer des éléments
+
+Comme pour les objets, nous pourrions vouloir mettre à jour un élément de tableau en appliquant une fonction à la valeur originale.
+
+```js
+const numbers = [10, 20, 30, 40, 50, 60]
+ 
+update(2, multiply(10, nth(2, numbers)), numbers) // => [10, 20, 300, 40, 50, 60]
+```
+
+Pour simplifier ce cas d'usage commun, Ramda nous donne `adjust` qui marche comme `evolve` pour les objets. Contrairement à `evolve`, `adjust` ne marche que pour un seul élément de tableau.
+
+```js
+const numbers = [10, 20, 30, 40, 50, 60]
+ 
+adjust(multiply(10), 2, numbers)
+```
+
+Remarquez que les deux premiers arguments d'`adjust` sont inversés par rapport à `update`. Ça peut être source de confusion, mais prend tout son sens quand vous considérez l'application partielle. Vous pourriez vouloir fournir une fonction d'ajustement avec `adjust(multiply(10))` et décider seulement plus tard à quel indice et à quel tableau appliquer cet ajustement.
