@@ -9,3 +9,4 @@
 * [Objets et immutabilité](objets-et-immutabilite.md)
 * [Tableaux et immutabilité](tableaux-et-immutabilite.md)
 * [Lentilles](lentilles.md)
+* [Récapitulatif](recapitulatif.md)
