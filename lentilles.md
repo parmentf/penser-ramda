@@ -34,10 +34,8 @@ Ici nous utilisons `prop` et `path` comme fonctions _getter_ et `assoc` et `asso
 
 Remarquez que nous avons à chaque fois dû dupliquer les arguments de la fonction _getter_ dans la fonction _setter_. Heureusement, Ramda a de beaux raccourcis pour les usages les plus communs des lentilles: `lensProp`, `lensPath` et `lensIndex`.
 
-- `lensProp` crée une lentille qui fait le point sur une propriété d'un objet.
-
-- `lensPath` crée une lentille qui fait le point sur une propriété imbriquée d'un objet.
-
+- `lensProp` crée une lentille qui fait le point sur une propriété d'un objet,
+- `lensPath` crée une lentille qui fait le point sur une propriété imbriquée d'un objet,
 - `lensIndex` crée une lentille qui fait le point sur un élément d'un tableau.
 
 Nous pourrions réécrire nos précédentes lentilles avec `lensProp` et `lensPath`:
@@ -48,3 +46,37 @@ const twitterLens = lensPath(['socialMedia', 'twitter'])
 ```
 
 C'est bien plus simple et supprime la duplication. Je n'éprouve pratiquement jamais le besoin d'utiliser la fonction `lens` générique.
+
+# Que puis-je en faire?
+
+Bon, super, nous avons créer des lentilles. Que peut-on en faire?
+
+Ramda fournit trois fonctions pour travailler avec des lentilles.
+
+- `view` lit la valeur d'une lentille,
+- `set` met à jour la valeur d'une lentille,
+- `over` applique une fonction de transformation à la lentille.
+
+```js
+view(nameLens, person) // => 'Randy'
+ 
+set(twitterLens, '@randy', person)
+// => {
+//   name: 'Randy',
+//   socialMedia: {
+//     github: 'randycoulman',
+//     twitter: '@randy'
+//   }
+// }
+ 
+over(nameLens, toUpper, person)
+// => {
+//   name: 'RANDY',
+//   socialMedia: {
+//     github: 'randycoulman',
+//     twitter: '@randycoulman'
+//   }
+// }
+```
+
+Notez que `set` et `over` renvoient l'objet entier avec la propriété visée par la lentille modifiée comme demandé.
