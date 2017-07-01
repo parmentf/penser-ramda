@@ -80,3 +80,13 @@ over(nameLens, toUpper, person)
 ```
 
 Notez que `set` et `over` renvoient l'objet entier avec la propriété visée par la lentille modifiée comme demandé.
+
+## Conclusion
+
+Les lentilles peuvent être pratiques si nous avons une structure donnée assez complexe que nous voulons abstraire du code appelant. Plutôt que d'exposer sa structure, ou de fournir un _getter_, un _setter_ et un _transformer_ pour chaque propriété accessible, on peut donner des lentilles.
+
+Le code client peut alors travailler sur la structure de données en utilisant `view`, `set` et `over` sans être couplé à la forme exacte de la structure.
+
+## Chapitre suivant
+
+Nous savons maintenant beaucoup de choses sur ce qu'offre Ramda; certainement assez pour faire la plupart des choses dont nous avons besoin dans nos programmes. Le [Récapitulatif](recapitulatif.md) revient sur tous les chapitres et mentionne quelques sujets que nous pourrions vouloir explorer nous-mêmes.
