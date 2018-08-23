@@ -2,7 +2,7 @@
 
 J'utiliserai la bibliothèque [Ramda](http://ramdajs.com/ "la bibliothèque javascript Ramda") tout au long de ce livre, bien que la plupart des concepts exposés soient applicables à d'autres bibliothèques, comme [Underscore](http://underscorejs.org/ "lien vers la bibliothèque javascript Underscore") et [Lodash](https://lodash.com/ "lien vers la bibliothèque javascript Lodash"), ainsi qu'à d'autres langages de programmation.
 
-Je m'en tiendrai aux sujets les plus légers, les moins académiques de la programmation fonctionnelle.Ceci principalement parce que je veux garder ce livre le plus accessible au plus grand nombre, mais aussi \(en partie\) parce que je ne suis pas encore très avancé sur la route de la programmation fonctionnelle.
+Je m'en tiendrai aux sujets les plus légers, les moins académiques de la programmation fonctionnelle. Ceci principalement parce que je veux garder ce livre le plus accessible au plus grand nombre, mais aussi \(en partie\) parce que je ne suis pas encore très avancé sur la route de la programmation fonctionnelle.
 
 ## Ramda
 
@@ -45,7 +45,7 @@ JavaScript est un de ces langages, et nous allons tirer parti de cet aspect.
 
 ## Fonctions pures
 
-En écrivant des programmes fonctionnels, il devient important de ne travailler qu'avec des fonctions soit-disant _pures_.
+En écrivant des programmes fonctionnels, il devient important de ne travailler qu'avec des fonctions soi-disant _pures_.
 
 Les fonctions pures sont des fonctions qui n'ont pas d'effet de bord. Elle n'affectent aucune variable externe, elles ne lisent pas l'entrée standard, n'écrivent pas dans la sortie standard, elles ne lisent ni n'écrivent dans une base de données, elles ne modifient pas les paramètres qu'elles reçoivent, etc.
 
@@ -69,7 +69,7 @@ La façon la plus simple de commencer à penser fonctionnellement est de remplac
 
 Si vous venez d'un autre langage qui possède ces fonctions \(Ruby et Smalltalk en sont quelques exemples\), elles vous sont peut-être déjà familières.
 
-Martin Fowler a une paire d'articles intéressants \(NDT: _great_, c'est sûrement mieux que ça\) à propos des _pipelines de collections_ qui montrent [comment utiliser ces fonctions](http://martinfowler.com/articles/collection-pipeline/), et comment [_refactorer_ du code existant en pipelines de collections](http://martinfowler.com/articles/refactoring-pipelines.html).
+Martin Fowler a une paire de très bons articles sur des _pipelines de collections_ qui montrent [comment utiliser ces fonctions](http://martinfowler.com/articles/collection-pipeline/), et comment [_refactorer_ du code existant en pipelines de collections](http://martinfowler.com/articles/refactoring-pipelines.html).
 
 Remarquez que ces fonctions sont toutes \(à l'exception de `reject`\) disponibles sur `Array.prototype`, donc vous n'avez pas strictement besoin de Ramda pour les utiliser. Néanmoins, j'utiliserai les versions Ramda pour une question de cohérence avec la suite du livre.
 
@@ -119,7 +119,7 @@ const isEven = x => x % 2 === 0
 filter(isEven, [1, 2, 3, 4])  // --> [2, 4]
 ```
 
-`filter` applique sa fonction \(`isEven` dans ce cas\) à chaque élément du tableau. Dès que la fonction renvoie une valeur vrai (NDT: _truthy_), l'élément correspondant est inclus dans le résultat. Dès que la valeur renvoyée est fausse (NDT: _falsy_), l'élément correspondant est exclus du tableau.
+`filter` applique sa fonction \(`isEven` dans ce cas\) à chaque élément du tableau. Dès que la fonction renvoie une valeur vrai \(NDT: _truthy_\), l'élément correspondant est inclus dans le résultat. Dès que la valeur renvoyée est fausse \(NDT: _falsy_\), l'élément correspondant est exclus du tableau.
 
 `reject` fait exactement l'inverse. Elle garde les éléments pour lesquels la fonction renvoie une valeur fausse \(NDT: _falsy_ en anglais, qui signifie équivalent au booléen _faux_ du point de vue JavaScript\), et exclut les éléments pour lesquels elle retourne une valeur vraie \(NDT: _truthy_ en anglais, là encore, cela signfie _vrai_ du point de vue JavaScript\).
 
