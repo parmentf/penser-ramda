@@ -12,36 +12,36 @@ L'équivalent de `prop` pour les tableaux est `nth`; l'équivalent de `pick` est
 
 ```js
 const numbers = [10, 20, 30, 40, 50, 60]
- 
+
 nth(3, numbers) // => 40  (0-based indexing)
- 
+
 nth(-2, numbers) // => 50 (negative numbers start from the right)
- 
+
 slice(2, 5, numbers) // => [30, 40, 50] (see below)
- 
+
 contains(20, numbers) // => true
 ```
 
-`slice` prend deux indices et renvoie le sous-tableau commençant au premier indice (qui démarre à 0) et incluant tous les éléments jusqu'au second indice (exclus).
+`slice` prend deux indices et renvoie le sous-tableau commençant au premier indice \(qui démarre à 0\) et incluant tous les éléments jusqu'au second indice \(exclu\).
 
-Accéder au premier (`nth(0)`) et au dernier (`nth(-1)`) élément est courant, donc Ramda fournit des raccourcis pour ces cas particuliers, `head` et `last`. Il donne aussi des fonctions pour accéder à tous les éléments sauf le premier (`tail`), tous les éléments sauf le dernier (`init`), les `N` premiers éléments (`take(N)`) et les `N` derniers éléments (`takeLast(N)`). Regardons-les en action.
+Accéder au premier \(`nth(0)`\) et au dernier \(`nth(-1)`\) élément est courant, donc Ramda fournit des raccourcis pour ces cas particuliers, `head` et `last`. Il donne aussi des fonctions pour accéder à tous les éléments sauf le premier \(`tail`\), tous les éléments sauf le dernier \(`init`\), les `N` premiers éléments \(`take(N)`\) et les `N` derniers éléments \(`takeLast(N)`\). Regardons-les en action.
 
 ```js
 const numbers = [10, 20, 30, 40, 50, 60]
- 
+
 head(numbers) // => 10
 tail(numbers) // => [20, 30, 40, 50, 60]
- 
+
 last(numbers) // => 60
 init(numbers) // => [10, 20, 30, 40, 50]
- 
+
 take(3, numbers) // => [10, 20, 30]
 takeLast(3, numbers) // => [40, 50, 60]
 ```
 
 ## Ajouter, mettre à jour et supprimer des éléments d'un tableau
 
-Pour les objets, nous avons appris `assoc`, `dissoc` et `omit` pour ajouter, mettre à jour et supprimer des propriétés (NDT: `dissoc` pour mettre à jour?!?).
+Pour les objets, nous avons appris `assoc`, `dissoc` et `omit` pour ajouter, mettre à jour et supprimer des propriétés \(NDT: `dissoc` pour mettre à jour?!?\).
 
 Parce que les tableaux sont une structure de données ordonnée, il y a plusieurs méthodes qui font le même travail qu'`assoc`. Les plus générales sont `insert` et `update`, mais Ramda fournit aussi `append` et `prepend` pour le cas courant d'ajout d'éléments au début ou à la fin du tableau. `insert`, `append` et `prepend` ajoutent de nouveaux éléments au tableau; `update` «remplace» un élément avec une nouvelle valeur.
 
@@ -49,13 +49,13 @@ Comme on peut l'attendre d'une bibliothèque fonctionnelle, toutes ces fonctions
 
 ```js
 const numbers = [10, 20, 30, 40, 50, 60]
- 
+
 insert(3, 35, numbers) // => [10, 20, 30, 35, 40, 50, 60]
- 
+
 append(70, numbers) // => [10, 20, 30, 40, 50, 60, 70]
- 
+
 prepend(0, numbers) // => [0, 10, 20, 30, 40, 50, 60]
- 
+
 update(1, 15, numbers) // => [10, 15, 30, 40, 50, 60]
 ```
 
@@ -63,7 +63,7 @@ Pour combiner deux objets en un seul, nous avons appris `merge`. Ramda offre `co
 
 ```js
 const numbers = [10, 20, 30, 40, 50, 60]
- 
+
 concat(numbers, [70, 80, 90]) // => [10, 20, 30, 40, 50, 60, 70, 80, 90]
 ```
 
@@ -73,17 +73,17 @@ Ramda fournit aussi plusieurs options pour supprimer des éléments. `remove` su
 
 ```js
 const numbers = [10, 20, 30, 40, 50, 60]
- 
+
 remove(2, 3, numbers) // => [10, 20, 60]
- 
+
 without([30, 40, 50], numbers) // => [10, 20, 60]
- 
+
 drop(3, numbers) // => [40, 50, 60]
- 
+
 dropLast(3, numbers) // => [10, 20, 30]
 ```
 
-Prenez note que `remove` prend un indice et un compte (le nombre d'éléments à supprimer) alors que `slice` prend deux indices. Cette incohérence peut être déroutante si vous n'en êtes pas conscient.
+Prenez note que `remove` prend un indice et un compte \(le nombre d'éléments à supprimer\) alors que `slice` prend deux indices. Cette incohérence peut être déroutante si vous n'en êtes pas conscient.
 
 ## Transformer des éléments
 
@@ -91,7 +91,7 @@ Comme pour les objets, nous pourrions vouloir mettre à jour un élément de tab
 
 ```js
 const numbers = [10, 20, 30, 40, 50, 60]
- 
+
 update(2, multiply(10, nth(2, numbers)), numbers) // => [10, 20, 300, 40, 50, 60]
 ```
 
@@ -99,7 +99,7 @@ Pour simplifier ce cas d'usage commun, Ramda nous donne `adjust` qui marche comm
 
 ```js
 const numbers = [10, 20, 30, 40, 50, 60]
- 
+
 adjust(multiply(10), 2, numbers)
 ```
 
@@ -111,4 +111,5 @@ Nous avons maintenant les outils pour travailler les tableaux et les objets d'un
 
 # Chapitre suivant
 
-Nous avons appris les manières de lire, mettre à jour et transformer des propriétés d'objets et des éléments de tableaux. Ramda fournit un outil plus général pour effectuer ces opérations, la lentille (NDT: _the lens_). [Lentilles](lentilles.md) nous montre comment elles fonctionnent.
+Nous avons appris les manières de lire, mettre à jour et transformer des propriétés d'objets et des éléments de tableaux. Ramda fournit un outil plus général pour effectuer ces opérations, la lentille \(NDT: _the lens_\). [Lentilles](lentilles.md) nous montre comment elles fonctionnent.
+
