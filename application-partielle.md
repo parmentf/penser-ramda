@@ -68,7 +68,7 @@ Ces deux fonctions permettent d'appeler une fonction quelconque avec moins d'arg
 
 La différence entre `partial` et `partialRight` tient dans le fait que nous donnons les arguments en commençant par le paramètre le plus à gauche ou le plus à droite de la fonction originale.
 
-Retournons à notre exemple originel et utilisons une de ces fonctions au lieu de réécrire `publishedInYear`. Comme nous ne voulons passer que l'année, et que c'est l'argument le plu sà droite, nous allons utiliser `partialRight`.
+Retournons à notre exemple originel et utilisons une de ces fonctions au lieu de réécrire `publishedInYear`. Comme nous ne voulons passer que l'année, et que c'est l'argument le plus à droite, nous allons utiliser `partialRight`.
 
 ```js
 const publishedInYear = (book, year) => book.year === year
@@ -134,16 +134,16 @@ Ramda propose quelques options.
 
 ### Flip
 
-La première option est `flip`. `flip` prend une fonction à deux arguments plus et retourne une nouvelle fonction qui prend les mêmes arguments mais échange l'ordre des deux premiers arguments. C'est principalement utilisé pour les fonction à deux arguments, mais c'est plus général que ça.
+La première option est `flip`. `flip` prend une fonction à deux arguments ou plus et retourne une nouvelle fonction qui prend les mêmes arguments mais échange l'ordre des deux premiers arguments. C'est principalement utilisé pour les fonction à deux arguments, mais c'est plus général que ça.
 
 En utilisant `flip`, on peut revenir à l'ordre original des arguments pour `publishedInYear`:
 
 ```js
 const publishedInYear = curry((book, year) => book.year === year)
- 
+
 const titlesForYear = (books, year) => {
   const selected = filter(flip(publishedInYear)(year), books)
- 
+
   return map(book => book.title, selected)
 }
 ```
@@ -152,9 +152,9 @@ Dans la plupart des cas, je préfère utiliser l'ordre des arguments le plus pra
 
 ### Espace réservé
 
-L'option la plus générale est l'argument _espace reservé_ (NDT: _placeholder_): `__`.
+L'option la plus générale est l'argument _espace reservé_ \(NDT: _placeholder_\): `__`.
 
-Et si nous avions une fonction curryfiée à trois arguments, que nous voulions lui fournir les premier et dernier arguments, laissant le dernier pour plus tard? Nous pouvons utiliser l'espace reservé (_placeholder_) à la place de l'argument du milieu:
+Et si nous avions une fonction curryfiée à trois arguments, que nous voulions lui fournir les premier et dernier arguments, laissant le dernier pour plus tard? Nous pouvons utiliser l'espace reservé \(_placeholder_\) à la place de l'argument du milieu:
 
 ```js
 const threeArgs = curry((a, b, c) => { /* ... */ })
@@ -166,7 +166,7 @@ Vous pouvez aussi utiliser l'espace reservé plus d'une fois lors d'un appel de 
 
 ```js
 const threeArgs = curry((a, b, c) => { /* ... */ })
- 
+
 const middleArgumentOnly = threeArgs(__, 'value for b', __)
 ```
 
@@ -174,10 +174,10 @@ Nous pouvons utiliser l'espace réservé au lieu de `flip` si nous voulons:
 
 ```js
 const publishedInYear = curry((book, year) => book.year === year)
- 
+
 const titlesForYear = (books, year) => {
   const selected = filter(publishedInYear(__, year), books)
- 
+
   return map(book => book.title, selected)
 }
 ```
@@ -192,23 +192,23 @@ Voyons si nous sommes capables de déplacer nos appels à `filter` et `map` dans
 
 ```js
 const publishedInYear = curry((year, book) => book.year === year)
- 
+
 const titlesForYear = (books, year) => {
   const selected = filter(publishedInYear(year), books)
- 
+
   return map(book => book.title, selected)
 }
 ```
 
 Dans le précédent chapitre, nous avons appris à utiliser `pipe` et `compose`, mais il nous manque une information pour pouvoir tirer parti de cet apprentissage.
 
-Voici l'information manquante: presque toutes les fonctions Ramda sont currufiées par défaut. Cela inclut `filter` et `map`. Donc `filter(publishedInYear(year))` est parfaitement légitime et renvoie une nouvelle fonction qui ne fait qu'attendre que nous lui passions les livres, tout comme `ùap(book => book.title)`.
+Voici l'information manquante: presque toutes les fonctions Ramda sont curryfiées par défaut. Cela inclut `filter` et `map`. Donc `filter(publishedInYear(year))` est parfaitement légitime et renvoie une nouvelle fonction qui ne fait qu'attendre que nous lui passions les livres, tout comme `map(book => book.title)`.
 
 Et maintenant nous pouvons écrire le pipeline:
 
 ```js
 const publishedInYear = curry((year, book) => book.year === year)
- 
+
 const titlesForYear = (books, year) =>
   pipe(
     filter(publishedInYear(year)),
@@ -220,7 +220,7 @@ Allons un cran plus loin et inversons les arguments de `titlesForYear` pour nous
 
 ```js
 const publishedInYear = curry((year, book) => book.year === year)
- 
+
 const titlesForYear = curry((year, books) =>
   pipe(
     filter(publishedInYear(year)),
@@ -238,3 +238,4 @@ Elles vous conduisent à commencer à construire des transformations en créant 
 ## Chapitre suivant
 
 Pour écrire du code dans un style fonctionnel, nous devons commencer à penser «déclarativement». Pour ce faire, nous allons devoir trouver des moyens d'exprimer les constructions impératives dont nous avons l'habitude d'une manière fonctionnelle. Ces idées sont le sujet de [Programmation déclarative](programmation-declarative.md).
+
